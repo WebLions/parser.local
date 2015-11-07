@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/js/script.js"></script>
  </head>
  <body>
  
  <div class = "conteiner">
+ <form action="" method="post" id="sform">
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
 <ul class="nav nav-pills">
@@ -15,7 +18,7 @@
   <li id="presentation" onclick="this.className ='active';"><a href="#">flypgs.com</a></li>
   <li id="presentation" onclick="this.className ='active';"><a href="#">flydubai.com</a></li>
   <li id="presentation" onclick="this.className ='active';"><a href="#">etc</a></li>
-  <button style="float:right;" class="btn btn-primary" type="submit">Вывести</button>
+<button style="float:right;" class="btn btn-primary" id="search" type="submit">Вывести</button>
 </ul>
 
 
@@ -28,34 +31,30 @@
     <div class="input-group">
 	<br>
 <div class="input-group input-group-sm">
+
   <span class="input-group-addon" id="sizing-addon3">Город #1</span>
-  <input type="text" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
+  <input type="text" name="Origin" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Город #2</span>
-  <input type="text" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
+  <input type="text" name="Destination" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
-  <input type="text" class="form-control" placeholder="Дата #1" aria-describedby="sizing-addon3">
+  <input type="text" name="first_date" class="form-control" placeholder="Дата #1" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Дата #2</span>
-  <input type="text" class="form-control" placeholder="Дата #2" aria-describedby="sizing-addon3">
+  <input type="text" name="period" class="form-control" placeholder="Дата #2" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
-  <input type="text" class="form-control" placeholder="Диапазон" aria-describedby="sizing-addon3">
+  <input type="text" name="pback" class="form-control" placeholder="Диапазон" aria-describedby="sizing-addon3">
 </div>
  
  </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
+
 </div><!-- /.row -->
  
- 
- 
- 
- 
- 
- 
- 
- 
+</form>
+
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
   <br>
@@ -77,28 +76,13 @@
  </tr>
  </thead>
  
- <tbody>
-  <tr>
- <th>Moscow - Domodedovo(DME)</th>
- <th>Antalya(AYT)</th>
- <th>07.11.2015 - 16:50</th>
- <th>1</th>
- <th>07.11.2015 - 23:30</th>
- <th>110.00 ЕВРО.</th>
- </tr>
-  <tr>
- <th>Moscow - Domodedovo(DME)</th>
- <th>Antalya(AYT)</th>
- <th>07.11.2015 - 16:50</th>
- <th>1</th>
- <th>08.11.2015 - 02:15</th>
- <th>110.00 ЕВРО.</th>
- </tr>
+ <tbody id="result">
+
  </tbody>
 </table>
 </div>
 </div>
-</div>
+
 
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
