@@ -10,14 +10,14 @@
  <body>
  
  <div class = "conteiner">
- <form action="" method="post" id="sform" data-ajax="">
+ <form action="" method="post" id="sform">
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
 <ul class="nav nav-pills">
 <br>
-  <li class="select-parser active" data-id="flypgs" ><a href="#">flypgs.com</a></li>
-  <li class="select-parser" data-id="flydubai"><a href="#">flydubai.com</a></li>
-  <li class="select-parser" data-id="etc" ><a href="#">etc</a></li>
+  <li id="presentation" onclick="this.className ='active';"><a href="#">flypgs.com</a></li>
+  <li id="presentation" onclick="this.className ='active';"><a href="#">flydubai.com</a></li>
+  <li id="presentation" onclick="this.className ='active';"><a href="#">etc</a></li>
 <button style="float:right;" class="btn btn-primary" id="search" type="submit">Вывести</button>
 </ul>
 
