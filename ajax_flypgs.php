@@ -147,26 +147,33 @@ $Destination = $_POST['Destination'];
 $first_date = $_POST['first_date'];
 $period = $_POST['period'];
 $pback = $_POST['pback'];
-
-
 //echo $period;
 $date = new DateTime($first_date);
 $date->add(new DateInterval('P'.$period.'D'));
 $second_date = $date->format('d/m/Y');
-//echo $second_date;
+
+$date = new DateTime($first_date);
+
+$first_date = $date->format('d');
+$first_date.= '/'.$date->format('m');
+$first_date.= '/'.$date->format('Y');
+$date = new DateTime($first_date);
+$date->modify('+3 day');
+$first_date = $date->format('d/m/Y');
+
 $ReturnDate = $second_date;
 
 $postdata = 'CURRENCY=EUR&'
 $postdata.='P=1893&'
 $postdata.='LC=RU&'
 $postdata.='userId=d32ce38f275bd6965dac92a12f10bbe6&pg=hp&'
-$postdata.='autodest='.$airport[$Origin].'Samsun'
+$postdata.='autodest='.$airport[$Origin].'&'
 $postdata.='DEPPORT='.$Origin.'&'
 $postdata.='autodest='.$airport[$Destination].'&'
 $postdata.='ARRPORT='.$Destination.'&'
 $postdata.='TRIPTYPE=R&'
-$postdata.='DEPDATE=07%2F11%2F2015&'
-$postdata.='RETDATE=26%2F11%2F2015&'
+$postdata.='DEPDATE='.$first_date.'&'
+$postdata.='RETDATE='.$ReturnDate.'&'
 $postdata.='ADULT=1&'
 $postdata.='CHILD=0&'
 $postdata.='INFANT=0&'
@@ -193,22 +200,9 @@ $postdata.='TXT_PNR_NO_sports=&'
 $postdata.='TXT_SURNAME_sports=&'
 $postdata.='__VIEWSTATEGENERATOR=967A6D11'
 
-$postdata = 'roundSingle=on&';
-$postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
-$postdata.= 'FormModel.OriginAirportCode='.$Origin.'&';
-$postdata.= 'FormModel.Destination='.$airports[$Destination].'&';
-$postdata.= 'FormModel.DestinationAirportCode='.$Destination.'&';
-$postdata.= 'txtDepartureDate='.$first_date.'&';
-$postdata.= 'FormModel.DepartureDate='.$first_date.'&';
-$postdata.= 'txtReturnDate='.$ReturnDate.'&';
-$postdata.= 'FormModel.ReturnDate='.$ReturnDate.'&';
-$postdata.= 'FormModel.IsFlexibleOnDates=false&';
-$postdata.= 'FormModel.Adults=1&';
-$postdata.= 'FormModel.Children=0&';
-$postdata.= 'FormModel.Infants=0&';
-$postdata.= 'FormModel.PromoCode=&';
-$postdata.= 'flightSearch=Show+flights';
+
+echo $postdata
 //$postdata = urlencode($postdata);
-$html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata);
+//$html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata);
 				
 ?>
