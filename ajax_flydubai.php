@@ -1,5 +1,12 @@
 <?php
 include "simple_html_dom.php";
+
+$ru_air = array (
+
+                
+
+    );
+
 $airports = array(
                 'AHB' => 'Abha Airport (AHB) - Abha',           
                 'ADD' => 'Addis Ababa Airport (ADD) - Addis Ababa',              
@@ -140,6 +147,7 @@ return $header;
 
 $Origin = $_POST['Origin'];
 $Destination = $_POST['Destination'];
+
 $first_date = $_POST['first_date'];
 $period = $_POST['period'];
 $pback = $_POST['pback'];
