@@ -1,114 +1,120 @@
-<?php
+<?php 
 include "simple_html_dom.php";
 $airports = array(
-                'AHB' => 'Abha Airport (AHB) - Abha',           
-                'ADD' => 'Addis Ababa Airport (ADD) - Addis Ababa',              
-               	'AMD' => 'Ahmedabad Airport (AMD) - Ahmedabad',              
-               	'AWZ' => 'Ahwaz Airport (AWZ) - Ahwaz',              
-                'HBE' => 'Alexandria Borg El Arab Airport (HBE) - Alexandria',            
-                'ALA' => 'Almaty Airport (ALA) - Almaty',            
-                'AMM' => 'Amman Airport (AMM) - Amman',            
-                'ASB' => 'Ashgabat Airport (ASB) - Ashgabat',            
-                'ASM' => 'Asmara Airport (ASM) - Asmara',            
-                'TSE' => 'Astana Airport (TSE) - Astana',            
-                'BGW' => 'Baghdad Airport (BGW) - Baghdad',            
-                'BAH' => 'Bahrain Airport (BAH) - Bahrain',            
-                'GYD' => 'Baku Airport (GYD) - Baku',            
-                'BND' => 'Bandar Abbas Airport (BND) - Bandar Abbas',            
-                'BSR' => 'Basra Airport (BSR) - Basra',            
-                'BEY' => 'Beirut Airport (BEY) - Beirut',            
-                'BEG' => 'Belgrade Airport (BEG) - Belgrade',            
-                'FRU' => 'Bishkek Airport (FRU) - Bishkek',            
-                'BTS' => 'Bratislava Airport (BTS) - Bratislava',            
-                'OTP' => 'Bucharest Airport (OTP) - Bucharest',            
-                'BJM' => 'Bujumbura Airport (BJM) - Bujumbura',            
-                'MAA' => 'Chennai Airport (MAA) - Chennai',            
-                'CGP' => 'Chittagong Airport (CGP) - Chittagong',            
-                'CMB' => 'Colombo Airport (CMB) - Colombo',            
-                'DMM' => 'Dammam Airport (DMM) - Dammam',            
-                'DAR' => 'Dar es Salaam Airport (DAR) - Dar es Salaam',            
-                'DEL' => 'Delhi Airport (DEL) - Delhi',            
-                'DAC' => 'Dhaka Airport (DAC) - Dhaka',            
-                'JIB' => 'Djibouti Airport (JIB) - Djibouti',            
-                'DOH' => 'Doha Airport (DOH) - Doha',            
-                'DXB' => 'Dubai All Airports (DXB) - Dubai',            
-                'DWC' => 'Al Maktoum International Airport (DWC) - Dubai',            
-                'DXB' => 'Dubai International Airport (DXB) - Dubai',            
-                'DYU' => 'Dushanbe Airport (DYU) - Dushanbe',            
-                'EBB' => 'Entebbe Airport (EBB) - Entebbe',            
-                'EBL' => 'Erbil Airport (EBL) - Erbil',            
-                'IFN' => 'Esfahan Airport (IFN) - Esfahan',            
-                'LYP' => 'Faisalabad Airport (LYP) - Faisalabad',            
-                'ELQ' => 'Gassim Airport (ELQ) - Gassim',            
-                'GIZ' => 'Gizan Airport (GIZ) - Gizan',            
-                'GOI' => 'Goa Airport (GOI) - Goa',            
-                'HAS' => 'Hail Airport (HAS) - Hail',            
-                'HDM' => 'Hamadan Airport (HDM) - Hamadan',            
-                'HGA' => 'Hargeisa Airport (HGA) - Hargeisa',            
-                'HOF' => 'Hofuf Airport (HOF) - Hofuf',            
-                'HYD' => 'Hyderabad Airport (HYD) - Hyderabad',            
-                'SAW' => 'Istanbul Sabiha Airport (SAW) - Istanbul',            
-                'JED' => 'Jeddah Airport (JED) - Jeddah',            
-                'AJF' => 'Jouf Airport (AJF) - Jouf',            
-                'JUB' => 'Juba Airport (JUB) - Juba',            
-                'KBL' => 'Kabul Airport (KBL) - Kabul',            
-                'KHI' => 'Karachi Airport (KHI) - Karachi',            
-                'KTM' => 'Kathmandu Airport (KTM) - Kathmandu',            
-                'KZN' => 'Kazan Airport (KZN) - Kazan',            
-                'KRT' => 'Khartoum Airport (KRT) - Khartoum',            
-                'IEV' => 'Zhulyany Airport (IEV) - Kiev',            
-                'KGL' => 'Kigali Airport (KGL) - Kigali',            
-                'COK' => 'Kochi Airport (COK) - Kochi',            
-                'KRR' => 'Krasnodar Airport (KRR) - Krasnodar',            
-                'KWI' => 'Kuwait Airport (KWI) - Kuwait',            
-                'LRR' => 'Lar Airport (LRR) - Lar',            
-                'LJU' => 'Ljubljana (Central bus station) (LJU) - Ljubljana',            
-                'LKO' => 'Lucknow Airport (LKO) - Lucknow',            
-                'MED' => 'Madinah Airport (MED) - Madinah',            
-                'MLE' => 'Male Airport (MLE) - Male',            
-                'MHD' => 'Mashhad Airport (MHD) - Mashhad',            
-                'HRI' => 'Mattala Airport (HRI) - Mattala',            
-                'MRV' => 'Mineralnye Vody Airport (MRV) - Mineralnye Vody',            
-                'VKO' => 'Vnukovo Airport (VKO) - Moscow',            
-                'MUX' => 'Multan Airport (MUX) - Multan',            
-                'BOM' => 'Mumbai Airport (BOM) - Mumbai',            
-                'MCT' => 'Muscat Airport (MCT) - Muscat',            
-                'NJF' => 'Najaf Airport (NJF) - Najaf',            
-                'GOJ' => 'Nizhny Novgorod Airport (GOJ) - Nizhny Novgorod',            
-                'ODS' => 'Odessa Airport (ODS) - Odessa',            
-                'PZU' => 'Port Sudan Airport (PZU) - Port Sudan',            
-                'PRG' => 'Prague Airport (PRG) - Prague',            
-                'UET' => 'Quetta Airport (UET) - Quetta',            
-                'RUH' => 'Riyadh Airport (RUH) - Riyadh',            
-                'ROV' => 'Rostov on Don Airport (ROV) - Rostov on Don',            
-                'SLL' => 'Salalah Airport (SLL) - Salalah',            
-                'KUF' => 'Samara Airport (KUF) - Samara',            
-                'SJJ' => 'Sarajevo Airport (SJJ) - Sarajevo',            
-                'SYZ' => 'Shiraz Airport (SYZ) - Shiraz',            
-                'CIT' => 'Shymkent Airport (CIT) - Shymkent',            
-                'SKT' => 'Sialkot Airport (SKT) - Sialkot',            
-                'SKP' => 'Skopje Airport (SKP) - Skopje',            
-                'SOF' => 'Sofia Airport (SOF) - Sofia',            
-                'TBZ' => 'Tabriz Airport (TBZ) - Tabriz',            
-                'TUU' => 'Tabuk Airport (TUU) - Tabuk',            
-                'TIF' => 'Taif Airport (TIF) - Taif',            
-                'TBS' => 'Tbilisi Airport (TBS) - Tbilisi',            
-                'IKA' => 'Tehran Airport (IKA) - Tehran',            
-                'TRV' => 'Thiruvananthapuram Airport (TRV) - Thiruvananthapuram',            
-                'UFA' => 'Ufa Airport (UFA) - Ufa',            
-                'XWC' => 'Vienna (Central train station) (XWC) - Vienna',            
-                'YNB' => 'Yanbu Airport (YNB) - Yanbu',            
-                'SVX' => 'Yekaterinburg Airport (SVX) - Yekaterinburg',            
-                'EVN' => 'Yerevan Airport (EVN) - Yerevan',            
-                'ZAG' => 'Zagreb Airport (ZAG) - Zagreb',            
-                'ZNZ' => 'Zanzibar Airport (ZNZ) - Zanzibar'           
-);
+					'ADA' => 'Adana',
+					'GZP' => 'Alanya - Gazipasa',
+					'ALA' => 'Almaty',
+					'MZH' => 'Amasya-Merzifon',
+					'AMS' => 'Amsterdam',
+					'ESB' => 'Ankara',
+					'AYT' => 'Antalya',
+					'ATH' => 'Athens',
+					'BGW' => 'Baghdad',
+					'BAH' => 'Bahrain',
+					'EDO' => 'Balikesir-Edremit',
+					'BCN' => 'Barcelona',
+					'BSL' => 'Basel - Mulhouse',
+					'BAL' => 'Batman',
+					'BEY' => 'Beirut',
+					'BEG' => 'Belgrade',
+					'SXF' => 'Berlin-Schonefeld',
+					'FRU' => 'Bishkek',
+					'BJV' => 'Bodrum',
+					'BLQ' => 'Bologna',
+					'CRL' => 'Brussels-Charleroi',
+					'OTP' => 'Bucharest-Otopeni',
+					'BUD' => 'Budapest',
+					'CGN' => 'Cologne',
+					'CPH' => 'Copenhagen',
+					'DLM' => 'Dalaman',
+					'DEL' => 'Delhi',
+					'DNZ' => 'Denizli',
+					'DIY' => 'Diyarbakir',
+					'DOH' => 'Doha',
+					'DXB' => 'Dubai',
+					'DUS' => 'Dusseldorf',
+					'EZS' => 'Elazig',
+					'EBL' => 'Erbil',
+					'ERC' => 'Erzincan',
+					'ERZ' => 'Erzurum',
+					'FRA' => 'Frankfurt - Main',
+					'GZT' => 'Gaziantep',
+					'GVA' => 'Geneva',
+					'HAM' => 'Hamburg',
+					'HAJ' => 'Hannover',
+					'HTY' => 'Hatay',
+					'HRG' => 'Hurghada',
+					'IST_SAW' => 'Istanbul All',
+					'IST' => 'Istanbul-Ataturk',
+					'SAW' => 'Istanbul-S.Gokcen',
+					'ADB' => 'Izmir',
+					'KCM' => 'Kahramanmaras',
+					'KSY' => 'Kars',
+					'KFS' => 'Kastamonu',
+					'ASR' => 'Kayseri',
+					'HRK' => 'Kharkiv',
+					'KYA' => 'Konya',
+					'KRR' => 'Krasnodar',
+					'KUT' => 'Kutaisi',
+					'KWI' => 'Kuwait',
+					'ECN' => 'Lefkosa - N. Cyprus',
+					'LEJ' => 'Leipzig',
+					'STN_LHR_LGW' => 'London All',
+					'LGW' => 'London-Gatwick',
+					'STN' => 'London-Stansted',
+					'LWO' => 'Lviv',
+					'LYS_EBU' => 'Lyon All',
+					'EBU' => 'Lyon-Saint Etienne',
+					'LYS' => 'Lyon-Saint Exupery',
+					'MAD' => 'Madrid - Barajas',
+					'MCX' => 'Makhachkala',
+					'MLX' => 'Malatya',
+					'MQM' => 'Mardin',
+					'MRS' => 'Marseille',
+					'BGY_MXP' => 'Milan All',
+					'BGY' => 'Milan-Bergamo',
+					'MXP' => 'Milan-Malpensa',
+					'MRV' => 'Mineralnye Vody',
+					'DME' => 'Moscow - Domodedovo',
+					'MUC' => 'Munich',
+					'FMO' => 'Munster',
+					'MSR' => 'Mus',
+					'NAV' => 'Nevsehir',
+					'NCE' => 'Nice',
+					'OVB' => 'Novosibirsk',
+					'NUE' => 'Nuremberg',
+					'OGU' => 'Ordu-Giresun',
+					'OSS' => 'Osh',
+					'OSL' => 'Oslo',
+					'VDA' => 'Ovda',
+					'ORY' => 'Paris-Orly(Sud)',
+					'PRG' => 'Prague',
+					'PRN' => 'Pristina',
+					'FCO' => 'Rome-Fiumicino',
+					'SZF' => 'Samsun',
+					'GNY' => 'Sanliurfa',
+					'SJJ' => 'Sarajevo',
+					'SSH' => 'Sharm el-Sheikh',
+					'VAS' => 'Sivas',
+					'SKP' => 'Skopje',
+					'ARN' => 'Stockholm - Arlanda',
+					'STR' => 'Stuttgart',
+					'TBS' => 'Tbilisi',
+					'IKA' => 'Tehran - IKA',
+					'TLV' => 'Tel Aviv - Ben Gurion',
+					'TIA' => 'Tirana',
+					'TZX' => 'Trabzon',
+					'URC' => 'Urumqi',
+					'VAN' => 'Van',
+					'VIE' => 'Vienna',
+					'SVX' => 'YEKATERINBURG',
+					'OZH' => 'Zaporizhia',
+					'ZRH' => 'Zurich'
+				);
 
-
-
-
+				
 function post_content ($url,$postdata) {
-$uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
+$uagent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
 
 $ch = curl_init( $url );
 curl_setopt($ch, CURLOPT_URL, $url);
@@ -122,8 +128,7 @@ curl_setopt($ch, CURLOPT_FAILONERROR, 1);
 curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-curl_setopt($ch, CURLOPT_COOKIEJAR, "coo.txt");
-curl_setopt($ch, CURLOPT_COOKIEFILE,"coo.txt");
+
 
 $content = curl_exec( $ch );
 $err = curl_errno( $ch );
@@ -136,17 +141,57 @@ $header['errmsg'] = $errmsg;
 $header['content'] = $content;
 return $header;
 } 
+
 $Origin = $_POST['Origin'];
 $Destination = $_POST['Destination'];
 $first_date = $_POST['first_date'];
 $period = $_POST['period'];
 $pback = $_POST['pback'];
+
+
 //echo $period;
 $date = new DateTime($first_date);
 $date->add(new DateInterval('P'.$period.'D'));
 $second_date = $date->format('d/m/Y');
 //echo $second_date;
 $ReturnDate = $second_date;
+
+$postdata = 'CURRENCY=EUR&'
+$postdata.='P=1893&'
+$postdata.='LC=RU&'
+$postdata.='userId=d32ce38f275bd6965dac92a12f10bbe6&pg=hp&'
+$postdata.='autodest='.$airport[$Origin].'Samsun'
+$postdata.='DEPPORT='.$Origin.'&'
+$postdata.='autodest='.$airport[$Destination].'&'
+$postdata.='ARRPORT='.$Destination.'&'
+$postdata.='TRIPTYPE=R&'
+$postdata.='DEPDATE=07%2F11%2F2015&'
+$postdata.='RETDATE=26%2F11%2F2015&'
+$postdata.='ADULT=1&'
+$postdata.='CHILD=0&'
+$postdata.='INFANT=0&'
+$postdata.='STUDENT=0&'
+$postdata.='SOLDIER=0&'
+$postdata.='clickedButton=btnSearch&'
+$postdata.='resetErrors=T&'
+$postdata.='TXT_PNR_NO_CHECKIN=&'
+$postdata.='TXT_NAME_CHECKIN=&'
+$postdata.='TXT_SURNAME_CHECKIN=&'
+$postdata.='TXT_PNR_NO=&'
+$postdata.='TXT_SURNAME=&'
+$postdata.='TXT_PNR_NO_edit=&'
+$postdata.='TXT_SURNAME_edit=&'
+$postdata.='TXT_PNR_NO_baggage=&'
+$postdata.='TXT_SURNAME_baggage=&'
+$postdata.='TXT_PNR_NO_s=&'
+$postdata.='TXT_SURNAME_s=&'
+$postdata.='TXT_PNR_NO=&'
+$postdata.='TXT_SURNAME=&'
+$postdata.='TXT_PNR_NO_insurance=&'
+$postdata.='TXT_SURNAME_insurance=&'
+$postdata.='TXT_PNR_NO_sports=&'
+$postdata.='TXT_SURNAME_sports=&'
+$postdata.='__VIEWSTATEGENERATOR=967A6D11'
 
 $postdata = 'roundSingle=on&';
 $postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
@@ -165,65 +210,5 @@ $postdata.= 'FormModel.PromoCode=&';
 $postdata.= 'flightSearch=Show+flights';
 //$postdata = urlencode($postdata);
 $html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata);
-//print_r( $html );
-//preg_match(pattern, $html);
-
-
-if( $curl = curl_init() ) {
-	$uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
-	curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/results/');
-	curl_setopt($curl, CURLOPT_HEADER, true);
-	curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
-	curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
-	curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
-	curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-    $out = curl_exec($curl);
-    preg_match('/RT\(([0-9]+)/', $out, $matches);
-    
-    curl_close($curl);
-   } 
-
-if( $curl = curl_init() ) {
-	$uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
-	curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/results/threedayview/?_='.$matches[1]);
-	//curl_setopt($curl, CURLOPT_HEADER, true);
-	curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
-	curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
-	curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
-	curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-    $out = curl_exec($curl);
-    curl_close($curl);
-   } 
-   $out = str_replace(array("\r", "\n", " "),'',$out);
-   $out = str_replace(array("\r", "\n", " "),'',$out);
-   $out = str_replace(array("\r", "\n", " "),'',$out);
-$file = 'people.txt';
-// Открываем файл для получения существующего содержимого
-$current = file_get_contents($file);
-// Добавляем нового человека в файл
-$current .= $out;
-// Пишем содержимое обратно в файл
-file_put_contents($file, $current);
-
-    preg_match('/USD<br\/>(.*?)<\/div>/', $out, $matches);
-
-    preg_match('/TDFare_1_ODS_BEY_(.*?)\'/', $out, $d);
-  // print_r($matches);
-  // $html = str_get_html($out);
-  // $am = $html->find('.dayAmount .showdiv span',0);
-  // $am = $am->find('.showdiv span')->innertext;
-?>
-<tr>
-    <td><?php echo $airports[$Origin];?></td>
-    <td><?php echo $airports[$Destination];?></td>
-    <td><?php echo $d[1];?></td>
-    <td><?php echo $period;?></td>
-    <td><?php //echo $second_date;?></td>
-    <td><?php echo $matches[1];?></td>
-
-</tr>
-<?php
-
+				
 ?>
