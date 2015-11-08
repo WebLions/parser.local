@@ -9,10 +9,10 @@
  </head>
  <body>
  
- <div class = "conteiner">
- <form action="" method="post" id="sform" data-ajax="">
+ <div class = "conteiner" style="width:1000px; margin:0 auto;">
+ <form action="" method="post" id="sform" data-ajax="flypgs">
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-12">
 <ul class="nav nav-pills">
 <br>
   <li class="select-parser active" data-id="flypgs" ><a href="#">flypgs.com</a></li>
@@ -27,7 +27,7 @@
 
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-12">
     <div class="input-group">
 	<br>
 <div class="input-group input-group-sm">
@@ -56,13 +56,13 @@
 </form>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-12">
   <br>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-12">
   
 <table class="table table-striped">
 <thead>
@@ -85,11 +85,12 @@
 
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-12">
   
 	
-	<button class="btn btn-info" type="submit">Печать</button>
-	<button class="btn btn-success" type="submit">Сохранить Excel</button>
+	<button class="btn btn-info" type="submit" onclick="javascript:window.print(); void 0;">Печать</button>
+	<button class="btn btn-success" type="submit" id="save">Сохранить Excel</button>
+  <span class="save"></span>
 	
 </div>
 </div>
