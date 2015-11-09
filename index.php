@@ -43,11 +43,11 @@
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
   <input type="text" name="first_date" class="form-control" placeholder="Дата #1" aria-describedby="sizing-addon3">
   
-  <span class="input-group-addon" id="sizing-addon3">Дата #2</span>
+ <!-- <span class="input-group-addon" id="sizing-addon3">Дата #2</span>
   <input type="text" name="period" class="form-control" placeholder="Дата #2" aria-describedby="sizing-addon3">
-  
+  -->
   <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
-  <input type="text" name="pback" class="form-control" placeholder="Диапазон" aria-describedby="sizing-addon3">
+  <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3">
 </div>
  
  </div><!-- /input-group -->
@@ -73,7 +73,7 @@
  <th>Куда</th>
  <th>Датa вылета</th>
  <th>Период мониторинга</th>
- <th>Дата прибытия</th>
+ <!-- <th>Дата прибытия</th> -->
  <th>Цена</th>
  </tr>
  </thead>
