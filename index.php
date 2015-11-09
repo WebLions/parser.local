@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/js/themes/blue/style.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="/js/script.js"></script>
+  <script src="/js/jquery.tablesorter.min.js"></script>
+  <script src="/js/script.js"></script>
  </head>
  <body>
  
@@ -66,9 +68,10 @@
 <div class="row">
   <div class="col-md-12">
   
-<table class="table table-striped">
+<table class="table table-striped" id="stable"  class="tablesorter">
 <thead>
  <tr>
+ <th>#</th>
  <th>Откуда</th>
  <th>Куда</th>
  <th>Датa вылета</th>

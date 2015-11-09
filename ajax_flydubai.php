@@ -20,14 +20,17 @@ $date = new DateTime($first_date);
 $date->add(new DateInterval('P'.$period.'D'));
 $second_date = $date->format('d/m/Y');
 
-$date = new DateTime($first_date);
 
+$date = new DateTime($first_date);
 $first_date = $date->format('d');
 $first_date.= '/'.$date->format('m');
 $first_date.= '/'.$date->format('Y');
-$date = new DateTime($first_date);
-$date->modify('+3 day');
-$first_date = $date->format('d/m/Y');
+$dates =  date('m/d/Y', strtotime($first_date. ' + 3 days'));
+$date = new DateTime($dates);
+$first_date = $date->format('d');
+$first_date.= '/'.$date->format('m');
+$first_date.= '/'.$date->format('Y');
+
 
 $ReturnDate = $second_date;
 
@@ -65,7 +68,7 @@ $current .= $am;
 file_put_contents($file, $current);
 */
 
-$day = 0; $plus_day = 1;
+$day = 0; $plus_day = 1; $k=1;
 while ($day <= $period ) {
     $tr = $html->find('.priceRow',0);
 
@@ -84,8 +87,11 @@ while ($day <= $period ) {
         preg_match('/<span>(.*?)\./',$am, $p);
         preg_match('/\'pence\'>(.*?)</',$am, $p1);
         $price = $p[1].".".$p1[1];
+
+        if(!empty($am)){
 ?>
             <tr>
+                <td><?php echo $k;?></td>
                 <td><?php echo $C1;?></td>
                 <td><?php echo $C2;?></td>
                 <td><?php echo $date;?></td>
@@ -94,28 +100,35 @@ while ($day <= $period ) {
                 <td><?php echo !empty($am)? $price : 'Рейс не найден';?></td>
 
             </tr>
-<?php 
+<?php   $k++;
+        }
+
     
         }else{
             break;
         }
     }
 
-    $date = new DateTime($first_date);
-    $first_date = $date->format('m');
-    $first_date.= '/'.$date->format('d');
-    $first_date.= '/'.$date->format('Y');
+    if($plus_day!==1){
+        $date = new DateTime($dates);
+        $plus_day++;
+        $first_date = $date->format('m');
+        $first_date.= '/'.$date->format('d');
+        $first_date.= '/'.$date->format('Y');
+    }else{
+        $first_date = $first_date1;
+    }
+
 
     $dates =  date('m/d/Y', strtotime($first_date. ' + 7 days'));
     $date = new DateTime($dates);
-    /*
-    $first_date = $date->format('m');
-    $first_date.= '/'.$date->format('d');
-    $first_date.= '/'.$date->format('Y');
-*/
     $first_date = $date->format('d');
     $first_date.= '/'.$date->format('m');
     $first_date.= '/'.$date->format('Y');
+
+        $first_date1 = $date->format('m');
+        $first_date1.= '/'.$date->format('d');
+        $first_date1.= '/'.$date->format('Y');
 
     $postdata = 'roundSingle=on&';
     $postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
@@ -133,8 +146,8 @@ while ($day <= $period ) {
     $postdata.= 'FormModel.PromoCode=&';
     $postdata.= 'flightSearch=Show+flights';
     //$postdata = urlencode($postdata);
+    unset($html);
     $html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata);
-
     $html = next_day();
     //echo $html;
     $html = str_get_html($html);
