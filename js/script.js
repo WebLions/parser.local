@@ -1,7 +1,7 @@
 (function($){
 	$(window).load(function(){
 
-	
+	$("#stable").tablesorter();
 	
 	$(".select-parser").click(function(){
 		
