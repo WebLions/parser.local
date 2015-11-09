@@ -125,7 +125,7 @@ $uagent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like 
 $ch = curl_init( $url );
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_HEADER, true);
+curl_setopt($ch, CURLOPT_HEADER, false);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
 curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
@@ -136,9 +136,9 @@ curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
 
 $content = curl_exec( $ch );
-$content = str_get_html($content);
 print_r($content);
-echo $content->find('div.relative span.flightPrice',0);
+$content = str_get_html($content);
+
 return $content;
 } 
 
@@ -148,6 +148,7 @@ $Destination = $_POST['Destination'];
 $first_date = $_POST['first_date'];
 $period = $_POST['period'];
 $pback = $_POST['pback'];
+
 //echo $period;
 
 
@@ -196,5 +197,7 @@ $postdata.='__VIEWSTATEGENERATOR=967A6D11';
 
 $html = post_content('https://book.flypgs.com/Common/MemberRezvResults.jsp?activeLanguage=RU', $postdata);
 
+
+echo $html->find('div.relative span.flightPrice',0);
 //print_r($html);
 ?>
