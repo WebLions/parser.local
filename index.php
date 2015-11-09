@@ -17,6 +17,8 @@
 <br>
   <li class="select-parser active" data-id="flypgs" ><a href="#">flypgs.com</a></li>
   <li class="select-parser" data-id="flydubai"><a href="#">flydubai.com</a></li>
+  <li class="select-parser" data-id="wizzair" ><a href="#">wizzair.com</a></li>
+  <li class="select-parser" data-id="norwegian"><a href="#">norwegian.no</a></li>
   <li class="select-parser" data-id="etc" ><a href="#">etc</a></li>
 <button style="float:right;" class="btn btn-primary" id="search" type="submit">Вывести</button>
 </ul>
