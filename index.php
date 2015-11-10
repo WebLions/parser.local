@@ -8,10 +8,11 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="/js/jquery.tablesorter.min.js"></script>
   <script src="/js/script.js"></script>
+  <link href="bootstrap/css/style.css" rel="stylesheet">
  </head>
  <body>
  
- <div class = "conteiner" style="width:1000px; margin:0 auto;">
+ <div class = "conteiner" style="width:1100px; margin:0 auto;">
  <form action="" method="post" id="sform" data-ajax="flypgs">
 <div class="row">
   <div class="col-md-12">
@@ -45,11 +46,26 @@
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
   <input type="text" name="first_date" class="form-control" placeholder="Дата #1" aria-describedby="sizing-addon3">
   
- <!-- <span class="input-group-addon" id="sizing-addon3">Дата #2</span>
-  <input type="text" name="period" class="form-control" placeholder="Дата #2" aria-describedby="sizing-addon3">
-  -->
-  <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
+ <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
   <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3">
+  
+  <span class="input-group-addon" id="sizing-addon3">Обратный рейс</span>
+  <select name="select" class="selectpicker form-control" style="padding:5px 0px;">
+    <option>1</option> 
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
+    <option>13</option>
+    <option>14</option>
+  </select>
 </div>
  
  </div><!-- /input-group -->
@@ -71,7 +87,7 @@
 <table class="table table-striped" id="stable"  class="tablesorter">
 <thead>
  <tr>
- <th>#</th>
+ <th></th>
  <th>Откуда</th>
  <th>Куда</th>
  <th>Датa вылета</th>
