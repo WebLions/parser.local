@@ -237,7 +237,7 @@ function post_content ($url,$postdata) {  //первый запрос на вы�
     return $header;
 }
 
-function next_day(){
+function next_day($origin, $destination, $date){
 
 if( $curl = curl_init() ) {
     $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
@@ -253,18 +253,50 @@ if( $curl = curl_init() ) {
     curl_close($curl);
    } 
 //echo 'http://flights.flydubai.com/en/results/threedayview/?_='.$matches[1];
+ /*  
 if( $curl = curl_init() ) {
     $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
-    curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/results/threedayview/?_='.$matches[1]);
+    curl_setopt($curl, CURLOPT_URL, 'http://flights.flydn='.$origin.'&destination='.$destination.'&originalSegmentId=1&monthtabtype=Economy&_='.$matches[1]);
     curl_setopt($curl, CURLOPT_HEADER, true);
+    curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
+    curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
+    curl_setopt($curl, CURLOPT_COOKIEJAR, "/coo.txt");
+    curl_setopt($curl, CURLOPT_COOKIEFILE,"/coo.txt");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    $out = curl_exec($curl);
+    preg_match('/RT\(([0-9]+)/', $out, $matches);
+    //echo $out;
+    curl_close($curl);
+   } 
+*/
+    if( $curl = curl_init() ) {
+    $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
+    curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/results/onemonthviewsegment/?segmentid=1&_='.$matches[1]);
+    curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
     curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
     curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
     curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
     $html = curl_exec($curl);
-    //echo $html;
+
+    echo $html;
     curl_close($curl);
-   } 
+   }
+    if( $curl = curl_init() ) {
+    $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
+    curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/results/onemonthviewsegment/?segmentid=2&_='.$matches[1]);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
+    curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
+    curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
+    curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    $html = curl_exec($curl);
+
+    echo $html;
+    curl_close($curl);
+   }
+   
    return $html;
 }

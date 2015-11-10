@@ -20,7 +20,7 @@ $date = new DateTime($first_date);
 $date->add(new DateInterval('P'.$period.'D'));
 $second_date = $date->format('d/m/Y');
 
-
+/*
 $date = new DateTime($first_date);
 $first_date = $date->format('d');
 $first_date.= '/'.$date->format('m');
@@ -30,7 +30,7 @@ $date = new DateTime($dates);
 $first_date = $date->format('d');
 $first_date.= '/'.$date->format('m');
 $first_date.= '/'.$date->format('Y');
-
+*/
 
 $ReturnDate = $second_date;
 
@@ -41,8 +41,8 @@ $postdata.= 'FormModel.Destination='.$airports[$Destination].'&';
 $postdata.= 'FormModel.DestinationAirportCode='.$Destination.'&';
 $postdata.= 'txtDepartureDate='.$first_date.'&';
 $postdata.= 'FormModel.DepartureDate='.$first_date.'&';
-$postdata.= 'txtReturnDate='.$ReturnDate.'&';
-$postdata.= 'FormModel.ReturnDate='.$ReturnDate.'&';
+$postdata.= 'txtReturnDate='.$first_date.'&';
+$postdata.= 'FormModel.ReturnDate='.$first_date.'&';
 $postdata.= 'FormModel.IsFlexibleOnDates=false&';
 $postdata.= 'FormModel.Adults=1&';
 $postdata.= 'FormModel.Children=0&';
@@ -53,10 +53,17 @@ $postdata.= 'flightSearch=Show+flights';
 
 
 $html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata);
-
-$html = next_day();
-
+/*
+$date = new DateTime($first_date);
+$first_date = $date->format('d/m/Y');
+*/
+$html = next_day($origin, $destination, $first_date);
+/*
+$date = new DateTime($first_date);
+$first_date = $date->format('d/m/Y');
+*/
 $html = str_get_html($html);
+//echo $html;
 
 /*
 $file = 'people.txt';
@@ -67,6 +74,94 @@ $current .= $am;
 // Пишем содержимое обратно в файл
 file_put_contents($file, $current);
 */
+
+
+
+$day = 1;
+
+    for($i=1; $i<6; $i++) {
+
+        $out = $html->find('tr',$i);
+
+        foreach ($out->find('td') as $val) {
+
+            $fly_out[$day]['price'] = isset( $val->find('.price', 0)->innertext )? $val->find('.price', 0)->innertext : 'Рейс не найден';
+            preg_match('/1_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_out);
+            $fly_out[$day]['date'] = $date_out[1];
+            $day++;
+        }
+
+    }
+
+$day = 1;
+
+    for($i=7; $i<11; $i++) {
+
+        $in = $html->find('tr',$i);
+        echo $in->innertext;
+        foreach ($in->find('td') as $val) {
+
+            $fly_in[$day]['price'] = isset( $val->find('.price', 0)->innertext )? $val->find('.price', 0)->innertext : 'Рейс не найден';
+            preg_match('/1_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_in);
+            $fly_in[$day]['date'] = $date_in[1];
+            $day++;
+        }
+
+    }
+
+
+foreach ($fly_out as $val) {
+    if(!empty($val['date'])){    
+    ?>
+        <tr>
+            <td class="ico-right-fly"></td>
+            <td><?=$C1?></td>
+            <td><?=$C1?></td>
+            <td><?=$val['date']?></td>
+            <td><?=$period?></td>
+            <td><?=$val['price']?></td>
+        </tr>
+    <?
+    }
+}
+foreach ($fly_in as $val) {
+    if(!empty($val['date'])){    
+    ?>
+        <tr>
+            <td class="ico-left-fly"></td>
+            <td><?=$C1?></td>
+            <td><?=$C1?></td>
+            <td><?=$val['date']?></td>
+            <td><?=$period?></td>
+            <td><?=$val['price']?></td>
+        </tr>
+    <?
+    }
+}
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 $day = 0; $plus_day = 1; $k=1;
 while ($day <= $period ) {
@@ -88,20 +183,6 @@ while ($day <= $period ) {
         preg_match('/\'pence\'>(.*?)</',$am, $p1);
         $price = $p[1].".".$p1[1];
 
-        if(!empty($am)){
-?>
-            <tr>
-                <td><?php echo $k;?></td>
-                <td><?php echo $C1;?></td>
-                <td><?php echo $C2;?></td>
-                <td><?php echo $date;?></td>
-                <td><?php echo $period;?></td>
-                <!-- <td><?php //echo $second_date;?></td> -->
-                <td><?php echo !empty($am)? $price : 'Рейс не найден';?></td>
-
-            </tr>
-<?php   $k++;
-        }
 
     
         }else{
@@ -126,9 +207,9 @@ while ($day <= $period ) {
     $first_date.= '/'.$date->format('m');
     $first_date.= '/'.$date->format('Y');
 
-        $first_date1 = $date->format('m');
-        $first_date1.= '/'.$date->format('d');
-        $first_date1.= '/'.$date->format('Y');
+    $first_date1 = $date->format('m');
+    $first_date1.= '/'.$date->format('d');
+    $first_date1.= '/'.$date->format('Y');
 
     $postdata = 'roundSingle=on&';
     $postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
@@ -156,5 +237,5 @@ while ($day <= $period ) {
 }else{
     echo 'Неверно указан аеропорт';
 }
-
+*/
 ?>
