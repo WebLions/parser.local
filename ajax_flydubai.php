@@ -109,8 +109,9 @@ foreach ($html_in as $html) {
         $in = $html->find('tr',$i);
 
         foreach ($in->find('td') as $val) {
-
+            //echo $val->id."<br>";
             preg_match('/2_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_in);
+            //$date = !empty($date_in[1])? $date_in[1] : 
             $fly_in[$date_in[1]]['price'] = isset( $val->find('.price', 0)->innertext )? $val->find('.price', 0)->innertext : 'Рейс не найден';
 
         }
@@ -120,11 +121,8 @@ foreach ($html_in as $html) {
 
 
 
-
-
-
     foreach ($fly_out as $key => $val) {
-        if(!empty($key)){    
+        if(!empty($key)){   /* 
         ?>
             <tr>
                 <td class="ico-right-fly"></td>
@@ -134,28 +132,34 @@ foreach ($html_in as $html) {
                 <td><?=$period?></td>
                 <td><?=$val['price']?></td>
             </tr>
-        <?
-            $fly_in[$key] = $
+        <?*/
+            reset($fly_in); $yes=false; $i=1;
+            while (list($keys, $val) = each($fly_in) ){
+                echo strtotime($key) .'=>'. strtotime($keys) .'=>'. $val['price'].'<br/>';
+                /*
+                if($keys == $key){
+                    $yes = true;
+                }
+                if($yes && $i < $pback){
+
+                                ?>
+                                    <tr>
+                                        <td class="ico-left-fly"></td>
+                                        <td><?=$C2?></td>
+                                        <td><?=$C1?></td>
+                                        <td><?=$keys?></td>
+                                        <td><?=$period?></td>
+                                        <td><?=$val['price']?></td>
+                                    </tr>
+                                <?
+                    $i++;
+                }else{
+                    $yes=false;
+                }*/
+            }
         }
     }
-
-    foreach ($fly_in as $key => $val) {
-        if(!empty($key)){    
-        ?>
-            <tr>
-                <td class="ico-left-fly"></td>
-                <td><?=$C2?></td>
-                <td><?=$C1?></td>
-                <td><?=$key?></td>
-                <td><?=$period?></td>
-                <td><?=$val['price']?></td>
-            </tr>
-        <?
-        }
-    }
-
 }
-
 
 /*
 
