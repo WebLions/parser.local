@@ -4,7 +4,7 @@ $city = $_POST['search'];
 foreach ($ru_air as $key => $value) {
 		?>
 		<li data-ata="<?=$value?>"><?=$key?></li>
-		<?
+		<? 
 }
 
 
