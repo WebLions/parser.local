@@ -55,6 +55,23 @@
 
 	});
 
+	$("#city-1").click(function () {
+		if($("#sform").attr('data-ajax') == 'flydubai'){
+			var search = $(this).val;
+			$.post("get_airflydubai.php", {search: search}, function(data){
+				$("#select-1 ul").html(data);
+				$("#select-1").css("display","block");
+			});
+		}
+	});
+	$( "#airlist" ).delegate( "li", "click", function() {
+		if($("#sform").attr('data-ajax') == 'flydubai'){
+			$("#select-1").css("display","none");
+			$('#city-1-ata').val( $(this).attr('data-ata') );
+			$('#city-1').val( $(this).html() );
+		}
+	});
+
 	});
 
 })(jQuery);

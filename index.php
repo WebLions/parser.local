@@ -38,8 +38,10 @@
 <div class="input-group input-group-sm">
 
   <span class="input-group-addon" id="sizing-addon3">Город #1</span>
-  <input type="text" name="Origin" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
-  
+  <input type="text" name="Origin" id="city-1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
+  <input type="hidden" name="Origins" id="city-1-ata" value="">
+  <div id="select-1" style="display:none"><ul id="airlist"></ul></div>
+
   <span class="input-group-addon" id="sizing-addon3">Город #2</span>
   <input type="text" name="Destination" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
   

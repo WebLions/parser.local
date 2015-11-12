@@ -4,3 +4,20 @@
 .ico-left-fly{
 	background: url("../../img/plains-prosmotr.png") 10px -34px no-repeat;
 }
+#select-1 ul{
+	list-style: none;
+	padding: 3px;
+}
+#select-1 ul li:hover{
+	background: #428bca;
+	color: #fff;
+}
+#select-1{
+	background: #fff;
+	position: absolute;
+	height: 200px;
+	overflow-y: scroll;
+	top:30px;
+    z-index: 1;
+    width: 165px;
+}
