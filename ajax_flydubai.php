@@ -11,6 +11,7 @@ $Origin = $ru_air[$C1];
 $Destination = $ru_air[$C2];
 
 
+
 if(!empty($Origin) && !empty($Destination))
 {
 
@@ -73,18 +74,6 @@ $html_in[] = str_get_html($html[1]);
 
 }
 
-
-/*
-$file = 'people.txt';
-// Открываем файл для получения существующего содержимого
-$current = file_get_contents($file);
-// Добавляем нового человека в файл
-$current .= $am;
-// Пишем содержимое обратно в файл
-file_put_contents($file, $current);
-*/
-
-
 foreach ($html_out as $html) {
     
     for($i=1; $i<6; $i++) {
@@ -94,7 +83,13 @@ foreach ($html_out as $html) {
         foreach ($out->find('td') as $val) {
 
             preg_match('/1_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_out);
-            $fly_out[$date_out[1]]['price'] = isset( $val->find('.price', 0)->innertext )? $val->find('.price', 0)->innertext : 'Рейс не найден';
+            if( isset( $val->find('.price', 0)->innertext ) ){
+                preg_match("/amount\">(.*?)<.*?pence\">([0-9]+)<\/span/", $val->find('.price', 0)->innertext, $output_array);
+                $price = $output_array[1] . $output_array[2];
+            }else{  
+                $price = 'Рейс не найден';
+            }
+            $fly_out[$date_out[1]]['price'] = $price;
             
         }
 
@@ -109,10 +104,15 @@ foreach ($html_in as $html) {
         $in = $html->find('tr',$i);
 
         foreach ($in->find('td') as $val) {
-            //echo $val->id."<br>";
+            
             preg_match('/2_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_in);
-            //$date = !empty($date_in[1])? $date_in[1] : 
-            $fly_in[$date_in[1]]['price'] = isset( $val->find('.price', 0)->innertext )? $val->find('.price', 0)->innertext : 'Рейс не найден';
+            if( isset( $val->find('.price', 0)->innertext ) ){
+                preg_match("/amount\">(.*?)<.*?pence\">([0-9]+)<\/span/", $val->find('.price', 0)->innertext, $output_array);
+                $price = $output_array[1] . $output_array[2];
+            }else{  
+                $price = 'Рейс не найден';
+            }
+            $fly_in[$date_in[1]]['price'] = $price;
 
         }
 
@@ -122,7 +122,7 @@ foreach ($html_in as $html) {
 
 
     foreach ($fly_out as $key => $val) {
-        if(!empty($key)){   /* 
+        if(!empty($key)){   
         ?>
             <tr>
                 <td class="ico-right-fly"></td>
@@ -132,110 +132,28 @@ foreach ($html_in as $html) {
                 <td><?=$period?></td>
                 <td><?=$val['price']?></td>
             </tr>
-        <?*/
-            reset($fly_in); $yes=false; $i=1;
-            while (list($keys, $val) = each($fly_in) ){
-                echo strtotime($key) .'=>'. strtotime($keys) .'=>'. $val['price'].'<br/>';
-                /*
-                if($keys == $key){
-                    $yes = true;
+        <?
+            $date = $key;
+            for ($i=0; $i < $pback; $i++) { 
+                $datetime = DateTime::createFromFormat('d/m/Y', $date);
+                $datetime->modify('+1 day');  
+                $date = $datetime->format('d/m/Y');
+                if(!empty($fly_in[$date])){
+                    ?>
+                        <tr>
+                            <td class="ico-left-fly"></td>
+                            <td><?=$C2?></td>
+                            <td><?=$C1?></td>
+                            <td><?=$date?></td>
+                            <td><?=$period?></td>
+                            <td><?=$fly_in[$date]['price']?></td>
+                        </tr>
+                    <?
                 }
-                if($yes && $i < $pback){
-
-                                ?>
-                                    <tr>
-                                        <td class="ico-left-fly"></td>
-                                        <td><?=$C2?></td>
-                                        <td><?=$C1?></td>
-                                        <td><?=$keys?></td>
-                                        <td><?=$period?></td>
-                                        <td><?=$val['price']?></td>
-                                    </tr>
-                                <?
-                    $i++;
-                }else{
-                    $yes=false;
-                }*/
             }
         }
     }
 }
 
-/*
 
-$day = 0; $plus_day = 1; $k=1;
-while ($day <= $period ) {
-    $tr = $html->find('.priceRow',0);
-
-    for($i=0; $i<7; $i++){
-        $day++;
-        echo $day;
-        if($day <= $period){
-
-        $elem = $tr->find('td',$i);
-        $am = $elem->find('.showdiv span',0);
-        if(empty($am)){
-             $am = $elem->find('.hidediv span',0);
-        }
-        $date = substr($elem->id, strripos($elem->id, "_") + 1, strlen($elem->id));
-        
-        preg_match('/<span>(.*?)\./',$am, $p);
-        preg_match('/\'pence\'>(.*?)</',$am, $p1);
-        $price = $p[1].".".$p1[1];
-
-
-    
-        }else{
-            break;
-        }
-    }
-
-    if($plus_day!==1){
-        $date = new DateTime($dates);
-        $plus_day++;
-        $first_date = $date->format('m');
-        $first_date.= '/'.$date->format('d');
-        $first_date.= '/'.$date->format('Y');
-    }else{
-        $first_date = $first_date1;
-    }
-
-
-    $dates =  date('m/d/Y', strtotime($first_date. ' + 7 days'));
-    $date = new DateTime($dates);
-    $first_date = $date->format('d');
-    $first_date.= '/'.$date->format('m');
-    $first_date.= '/'.$date->format('Y');
-
-    $first_date1 = $date->format('m');
-    $first_date1.= '/'.$date->format('d');
-    $first_date1.= '/'.$date->format('Y');
-
-    $postdata = 'roundSingle=on&';
-    $postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
-    $postdata.= 'FormModel.OriginAirportCode='.$Origin.'&';
-    $postdata.= 'FormModel.Destination='.$airports[$Destination].'&';
-    $postdata.= 'FormModel.DestinationAirportCode='.$Destination.'&';
-    $postdata.= 'txtDepartureDate='.$first_date.'&';
-    $postdata.= 'FormModel.DepartureDate='.$first_date.'&';
-    $postdata.= 'txtReturnDate='.$ReturnDate.'&';
-    $postdata.= 'FormModel.ReturnDate='.$ReturnDate.'&';
-    $postdata.= 'FormModel.IsFlexibleOnDates=false&';
-    $postdata.= 'FormModel.Adults=1&';
-    $postdata.= 'FormModel.Children=0&';
-    $postdata.= 'FormModel.Infants=0&';
-    $postdata.= 'FormModel.PromoCode=&';
-    $postdata.= 'flightSearch=Show+flights';
-    //$postdata = urlencode($postdata);
-    unset($html);
-    $html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata);
-    $html = next_day();
-    //echo $html;
-    $html = str_get_html($html);
-}
-
-}else{
-    echo 'Неверно указан аеропорт';
-}
-*/
 ?>
