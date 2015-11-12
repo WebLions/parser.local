@@ -40,7 +40,7 @@
   <div id="select-1" style="display:none"><ul id="airlist"></ul></div>
 
   <span class="input-group-addon" id="sizing-addon3">Город #2</span>
-  <input type="text" name="Destination" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
+  <input type="text" name="Destination" id="city-2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
   <input type="text" name="first_date" class="form-control" placeholder="Дата #1" aria-describedby="sizing-addon3">
