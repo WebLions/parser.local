@@ -27,16 +27,18 @@
 	$("#search").click(function(e){
 
 		$("#result").html('<img src="/img/238.GIF">');
-		
+		if($('#city-2').val()=="911"){
+			$("#result").html('<div id="boom"><img src="/img/911.gif"></div>');
+		}else{
 		var parser = $("#sform").attr('data-ajax');
 		
 		$.post("/ajax_"+parser+".php", $( "#sform" ).serialize(), function(data){
 				$("#result").html(data);
 				result = data;
 			});
+		}	
 			return false;
 			e.preventdefault();
-
 	});
 
 	$("#save").click(function(){

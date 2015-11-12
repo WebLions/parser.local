@@ -20,10 +20,10 @@ $date = DateTime::createFromFormat('d/m/Y', $first_date1);
 $first_date = '01';
 $first_date.= '/'.$date->format('m');
 $first_date.= '/'.$date->format('Y');
-$raz = $date->format('d');
+$raz = $date->format('d') - 1;
 
-$period = $_POST['pback'];
-$pback = $_POST['select'] + $raz;
+$period = $_POST['pback'] + $raz ;
+$pback = $_POST['select'];
 $cmouth = (int) floor($period / 30) + 1;
 $ara = true;
 
@@ -88,7 +88,7 @@ foreach ($html_out as $html) {
                 $raz--;
                 continue;
             } 
-            if($k<=$pback){
+            if($k<=$period){
                 preg_match('/1_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_out);
                 if( isset( $val->find('.price', 0)->innertext ) ){
 
@@ -141,7 +141,7 @@ foreach ($html_in as $html) {
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
-                <td><?=$period?></td>
+                <td></td>
                 <td><?=$val['price']?></td>
             </tr>
         <?
@@ -157,7 +157,7 @@ foreach ($html_in as $html) {
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
-                            <td><?=$period?></td>
+                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
                         </tr>
                     <?
