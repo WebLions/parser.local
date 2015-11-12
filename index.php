@@ -4,17 +4,12 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-<<<<<<< HEAD
   <link href="/js/themes/blue/style.css" rel="stylesheet">
     <link href="bootstrap/css/style.css" rel="stylesheet">
   <link href="bootstrap/datepicker/css/datepicker.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
 
-=======
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="/js/script.js"></script>
->>>>>>> refs/remotes/origin/master
  </head>
  <body>
  
