@@ -4,8 +4,12 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/js/themes/blue/style.css" rel="stylesheet">
+    <link href="bootstrap/css/style.css" rel="stylesheet">
+  <link href="bootstrap/datepicker/css/datepicker.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="/js/script.js"></script>
+  <script src="bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
+
  </head>
  <body>
  
@@ -43,10 +47,28 @@
   <input type="text" name="Destination" id="city-2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
-  <input type="text" name="first_date" class="form-control" placeholder="Дата #1" aria-describedby="sizing-addon3">
+  <input type="text" name="first_date" class="form-control datepicker" data-provide="datepicker" placeholder="Дата #1" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
   <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3">
+
+  <span class="input-group-addon" id="sizing-addon3">Обратный рейс</span>
+  <select name="select" class="selectpicker form-control" style="padding:5px 0px;">
+    <option>1</option> 
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
+    <option>13</option>
+    <option>14</option>
+  </select>
 </div>
  
  </div><!-- /input-group -->
@@ -96,6 +118,6 @@
 </div>
 </div>
 </div>
-
+    <script src="/js/script.js"></script>
 </body>
 </html>

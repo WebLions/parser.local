@@ -1,7 +1,10 @@
 (function($){
 	$(window).load(function(){
 
-	$("#stable").tablesorter();
+	$('.datepicker').datepicker({
+		language: "ru"
+	});
+
 	
 	$(".select-parser").click(function(){
 		
@@ -29,6 +32,9 @@
 		$("#result").html('<img src="/img/238.GIF">');
 		if($('#city-2').val()=="911"){
 			$("#result").html('<div id="boom"><img src="/img/911.gif"></div>');
+			var audio = new Audio(); // Создаём новый элемент Audio
+			  audio.src = '../img/911.mp3'; // Указываем путь к звуку "клика"
+			  audio.autoplay = true;
 		}else{
 		var parser = $("#sform").attr('data-ajax');
 		
