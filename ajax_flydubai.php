@@ -16,18 +16,19 @@ if(!empty($Origin) && !empty($Destination))
 {
 
 $first_date1 = $_POST['first_date'];
-$date = new DateTime($first_date1);
+$date = DateTime::createFromFormat('d/m/Y', $first_date1);
 $first_date = '01';
 $first_date.= '/'.$date->format('m');
 $first_date.= '/'.$date->format('Y');
+$raz = $date->format('d');
 
 $period = $_POST['pback'];
-$pback = $_POST['select'];
+$pback = $_POST['select'] + $raz;
 $cmouth = (int) floor($period / 30) + 1;
 $ara = true;
 
 for ($i=0; $i <= $cmouth; $i++) { 
-    
+
 $postdata = 'roundSingle=on&';
 $postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
 $postdata.= 'FormModel.OriginAirportCode='.$Origin.'&';
@@ -73,6 +74,7 @@ $html_in[] = str_get_html($html[1]);
     }
 
 }
+$k=0;
 
 foreach ($html_out as $html) {
     
@@ -82,15 +84,25 @@ foreach ($html_out as $html) {
 
         foreach ($out->find('td') as $val) {
 
-            preg_match('/1_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_out);
-            if( isset( $val->find('.price', 0)->innertext ) ){
-                preg_match("/amount\">(.*?)<.*?pence\">([0-9]+)<\/span/", $val->find('.price', 0)->innertext, $output_array);
-                $price = $output_array[1] . $output_array[2];
-            }else{  
-                $price = 'Рейс не найден';
+            if($raz>0){
+                $raz--;
+                continue;
+            } 
+            if($k<=$pback){
+                preg_match('/1_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_out);
+                if( isset( $val->find('.price', 0)->innertext ) ){
+
+                    $preprice = str_replace(array("\r\n", "\r", "\n"), " ", $val->find('.price', 0)->innertext);
+                    preg_match("/>(.*?)<.*?>([0-9]+)</", $preprice, $output_array);
+                    $price = $output_array[1] . $output_array[2];
+                }else{  
+                    $price = 'Рейс не найден';
+                }
+                $k++;
+                $fly_out[$date_out[1]]['price'] = $price;
+            }else{
+                break;
             }
-            $fly_out[$date_out[1]]['price'] = $price;
-            
         }
 
     }
@@ -107,7 +119,8 @@ foreach ($html_in as $html) {
             
             preg_match('/2_[A-Z]+_[A-Z]+_(.*?)\s+00/', $val->id, $date_in);
             if( isset( $val->find('.price', 0)->innertext ) ){
-                preg_match("/amount\">(.*?)<.*?pence\">([0-9]+)<\/span/", $val->find('.price', 0)->innertext, $output_array);
+                $preprice = str_replace(array("\r\n", "\r", "\n"), " ", $val->find('.price', 0)->innertext);
+                preg_match("/>(.*?)<.*?>([0-9]+)</", $preprice, $output_array);
                 $price = $output_array[1] . $output_array[2];
             }else{  
                 $price = 'Рейс не найден';
@@ -118,7 +131,6 @@ foreach ($html_in as $html) {
 
     }
 }
-
 
 
     foreach ($fly_out as $key => $val) {
@@ -152,6 +164,7 @@ foreach ($html_in as $html) {
                 }
             }
         }
+
     }
 }
 
