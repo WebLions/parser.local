@@ -4,16 +4,21 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<<<<<<< HEAD
   <link href="/js/themes/blue/style.css" rel="stylesheet">
     <link href="bootstrap/css/style.css" rel="stylesheet">
   <link href="bootstrap/datepicker/css/datepicker.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
 
+=======
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/js/script.js"></script>
+>>>>>>> refs/remotes/origin/master
  </head>
  <body>
  
- <div class = "conteiner" style="width:1100px; margin:0 auto;">
+ <div class = "conteiner" style="width:1000px; margin:0 auto;">
  <form action="" method="post" id="sform" data-ajax="flypgs">
 <div class="row">
   <div class="col-md-12">
@@ -49,7 +54,7 @@
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
   <input type="text" name="first_date" class="form-control datepicker" data-provide="datepicker" placeholder="Дата #1" aria-describedby="sizing-addon3">
   
- <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
+  <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
   <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3">
 
   <span class="input-group-addon" id="sizing-addon3">Обратный рейс</span>
@@ -87,10 +92,9 @@
 <div class="row">
   <div class="col-md-12">
   
-<table class="table table-striped" id="stable"  class="tablesorter">
+<table class="table table-striped">
 <thead>
  <tr>
- <th></th>
  <th>Откуда</th>
  <th>Куда</th>
  <th>Датa вылета</th>
