@@ -1,9 +1,9 @@
 (function($){
 	$(window).load(function(){
 
-	$('.datepicker').datepicker(
+	$('.datepicker').datepicker({
 		language: "ru"
-	);
+	});
 
 	
 	$(".select-parser").click(function(){

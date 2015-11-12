@@ -51,8 +51,7 @@
   
  <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
   <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3">
-   
-   
+
   <span class="input-group-addon" id="sizing-addon3">Обратный рейс</span>
   <select name="select" class="selectpicker form-control" style="padding:5px 0px;">
     <option>1</option> 
