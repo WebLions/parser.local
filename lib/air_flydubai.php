@@ -278,9 +278,8 @@ if( $curl = curl_init() ) {
     curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
     curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-    $html = curl_exec($curl);
+    $html[0] = curl_exec($curl);
 
-    echo $html;
     curl_close($curl);
    }
     if( $curl = curl_init() ) {
@@ -292,9 +291,8 @@ if( $curl = curl_init() ) {
     curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
     curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-    $html = curl_exec($curl);
-
-    echo $html;
+    $html[1] = curl_exec($curl);
+    //echo $html[1];
     curl_close($curl);
    }
    

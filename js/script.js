@@ -1,7 +1,10 @@
 (function($){
 	$(window).load(function(){
 
-	$("#stable").tablesorter();
+	$('.datepicker').datepicker({
+		language: "ru"
+	});
+
 	
 	$(".select-parser").click(function(){
 		
@@ -27,16 +30,21 @@
 	$("#search").click(function(e){
 
 		$("#result").html('<img src="/img/238.GIF">');
-		
+		if($('#city-2').val()=="911"){
+			$("#result").html('<div id="boom"><img src="/img/911.gif"></div>');
+			var audio = new Audio(); // Создаём новый элемент Audio
+			  audio.src = '../img/911.mp3'; // Указываем путь к звуку "клика"
+			  audio.autoplay = true;
+		}else{
 		var parser = $("#sform").attr('data-ajax');
 		
 		$.post("/ajax_"+parser+".php", $( "#sform" ).serialize(), function(data){
 				$("#result").html(data);
 				result = data;
 			});
+		}	
 			return false;
 			e.preventdefault();
-
 	});
 
 	$("#save").click(function(){
@@ -53,6 +61,23 @@
 			return false;
 			e.preventdefault();
 
+	});
+
+	$("#city-1").click(function () {
+		if($("#sform").attr('data-ajax') == 'flydubai'){
+			var search = $(this).val;
+			$.post("get_airflydubai.php", {search: search}, function(data){
+				$("#select-1 ul").html(data);
+				$("#select-1").css("display","block");
+			});
+		}
+	});
+	$( "#airlist" ).delegate( "li", "click", function() {
+		if($("#sform").attr('data-ajax') == 'flydubai'){
+			$("#select-1").css("display","none");
+			$('#city-1-ata').val( $(this).attr('data-ata') );
+			$('#city-1').val( $(this).html() );
+		}
 	});
 
 	});
