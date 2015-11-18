@@ -10,8 +10,6 @@ $C2 = trim($_POST['Destination']);
 $Origin = $ru_air[$C1];
 $Destination = $ru_air[$C2];
 
-
-
 if(!empty($Origin) && !empty($Destination))
 {
 

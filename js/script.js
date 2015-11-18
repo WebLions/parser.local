@@ -2,9 +2,8 @@
 	$(window).load(function(){
 
 	$('.datepicker').datepicker({
-		language: "ru"
+		format: 'dd/mm/yyyy'
 	});
-
 	
 	$(".select-parser").click(function(){
 		
@@ -63,7 +62,7 @@
 
 	});
 
-	$("#city-1").click(function () {
+	$(".add-city-1").click(function () {
 		if($("#sform").attr('data-ajax') == 'flydubai'){
 			var search = $(this).val;
 			$.post("get_airflydubai.php", {search: search}, function(data){
@@ -76,10 +75,13 @@
 		if($("#sform").attr('data-ajax') == 'flydubai'){
 			$("#select-1").css("display","none");
 			$('#city-1-ata').val( $(this).attr('data-ata') );
-			$('#city-1').val( $(this).html() );
+			$('.city-list-1').append( '<span class="city">' + $(this).html() +'<a href="#" class="del-city">X</a></span>' );
 		}
 	});
-
+	$( ".city-list-1" ).delegate(".city .del-city", "click", function(){
+		$(this).parent().remove();
 	});
+
+  });
 
 })(jQuery);
