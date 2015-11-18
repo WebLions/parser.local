@@ -213,4 +213,27 @@ $airports = array(
 					'OZH' => 'Zaporizhia',
 					'ZRH' => 'Zurich'
 				);
+
+function post_content ($url,$postdata) {
+	
+$uagent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
+
+$ch = curl_init( $url );
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
+curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
+curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+
+$content = curl_exec( $ch );
+$content = str_get_html($content);
+
+return $content;
+} 				
 ?>

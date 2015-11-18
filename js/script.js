@@ -2,7 +2,7 @@
 	$(window).load(function(){
 
 	$('.datepicker').datepicker({
-		language: "ru"
+		format:"dd/mm/yyyy"
 	});
 
 	
