@@ -23,6 +23,7 @@
   <li class="select-parser" data-id="flydubai"><a href="#">flydubai.com</a></li>
   <li class="select-parser" data-id="wizzair" ><a href="#">wizzair.com</a></li>
   <li class="select-parser" data-id="norwegian"><a href="#">norwegian.no</a></li>
+  <li class="select-parser" data-id="airbaltic"><a href="#">airbaltic.com</a></li>
   <li class="select-parser" data-id="etc" ><a href="#">etc</a></li>
 <button style="float:right;" class="btn btn-primary" id="search" type="submit">Вывести</button>
 </ul>
@@ -37,14 +38,17 @@
     <div class="input-group">
 	<br>
 <div class="input-group input-group-sm">
-
-  <span class="input-group-addon" id="sizing-addon3">Город #1</span>
-  <input type="text" name="Origin" id="city-1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
-  <input type="hidden" name="Origins" id="city-1-ata" value="">
+<!--
+  <span class="input-group-addon add-city-1" id="sizing-addon3">Город вылета+</span>
+  <div class="city-list-1"></div> 
+  <input type="hidden" name="Origin" id="city-1" value="KBP">
   <div id="select-1" style="display:none"><ul id="airlist"></ul></div>
+  -->
+  <span class="input-group-addon" id="sizing-addon3">Город #1</span>
+  <input type="text" name="Origin" id="city-1" value="KBP" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
 
   <span class="input-group-addon" id="sizing-addon3">Город #2</span>
-  <input type="text" name="Destination" id="city-2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
+  <input type="text" name="Destination" id="city-2" value="WAW" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
   
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
   <input type="text" name="first_date" class="form-control datepicker" data-provide="datepicker" placeholder="Дата #1" aria-describedby="sizing-addon3">
@@ -90,11 +94,11 @@
 <table class="table table-striped">
 <thead>
  <tr>
+
  <th>Откуда</th>
  <th>Куда</th>
  <th>Датa вылета</th>
  <th>Период мониторинга</th>
- <!-- <th>Дата прибытия</th> -->
  <th>Цена</th>
  </tr>
  </thead>
