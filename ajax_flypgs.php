@@ -130,8 +130,7 @@
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
-				<td><?=$pback?></td>
-                <td><?=$val?></td>
+				<td><?=$val?></td>
             </tr>
         <?
             $date = $key;
@@ -146,8 +145,7 @@
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
-							<td><?=$pback?></td>
-                            <td><?=$fly_in[$date]?></td>
+							<td><?=$fly_in[$date]?></td>
                         </tr>
                     <?
                 }
