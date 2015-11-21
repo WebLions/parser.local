@@ -94,11 +94,10 @@
 <table class="table table-striped">
 <thead>
  <tr>
-
+ <th></th>
  <th>Откуда</th>
  <th>Куда</th>
  <th>Датa вылета</th>
- <th>Период мониторинга</th>
  <th>Цена</th>
  </tr>
  </thead>

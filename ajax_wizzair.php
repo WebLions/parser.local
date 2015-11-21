@@ -47,7 +47,6 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24PaxCountADT=1';
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24PaxCountCHD=0';
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24PaxCountINFANT=0';
-    $postdata.= '&WizzSummaryDisplaySelectViewRibbonSelectView%24PaymentCurrencySelector=209842FULL';
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24ButtonSubmit=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA';
 
     $ch = curl_init( $url );
@@ -59,7 +58,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
     curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 180);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 360);
     curl_setopt($ch, CURLOPT_FAILONERROR, 1);
     curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -68,6 +67,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_COOKIEFILE,"Z://dcoo.txt");
 
     $content = curl_exec( $ch );
+    //echo $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
     if ($code == 301 || $code == 302) {
@@ -84,6 +84,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
 //Парсим рейсы туда
 do{   
     $html = post_content($url, $Origin, $Destination, $first_date);
+    
     $html = str_get_html($html);
     $html_out = $html->find('div[id=marketColumn0]',0)->find('.flights-body',0);
     unset($html); 
@@ -118,7 +119,7 @@ do{
     }
     unset($datetime);
     //+1 den
-}while(true);
+}while(true==1);
 unset($html);
 unset($html_out);
 
