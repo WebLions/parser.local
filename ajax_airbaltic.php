@@ -137,6 +137,7 @@ do{
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
+                <td></td>
                 <td><?=$val['price']?></td>
             </tr>
         <?
@@ -152,6 +153,7 @@ do{
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
+                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
                         </tr>
                     <?
