@@ -68,7 +68,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_COOKIEFILE,"Z://dcoo.txt");
 
     $content = curl_exec( $ch );
-    //echo $content;
+   // echo $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
     if ($code == 301 || $code == 302) {
@@ -83,6 +83,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
 
 }
 //Парсим рейсы туда
+
 do{   
     $html = post_content($url, $Origin, $Destination, $first_date);
     
@@ -90,8 +91,7 @@ do{
     $html_out = $html->find('div[id=marketColumn0]',0)->find('.flights-body',0);
     unset($html); 
     $datetime = DateTime::createFromFormat('d/m/Y', $first_date); 
-    $now_date = $datetime->format('d/m/Y'); 
-
+    $now_date = $datetime->format('d/m/Y');
     foreach ($html_out->find('.flight-row') as $value) {
         $date_out = $value->find('.flight-date',0)->find('span',0)->{'data-flight-departure'};
             if( !empty( $date_out )){
@@ -105,15 +105,20 @@ do{
                     $date_out = $date_out->format('d/m/Y');
                     $fly_out[ $date_out ]['price'] = $price[1];
                     $now_date = $date_out;
-                    echo $now_date;
+                    //echo $now_date;
+                }else{
+                    $now_date = $date_out;
                 }
             }else{
                 unset($date_out);
             }
     }
-    echo $now_date;
+    //echo $first_date .'---'. $now_date."<br>";
     $datetime = DateTime::createFromFormat('d/m/Y', $now_date);
-    $datetime->modify('+1 day'); 
+    $datetime->modify('+1 day');
+    if($first_date == trim( $datetime->format('d/m/Y') )){
+       $datetime->modify('+1 day'); 
+    } 
     $first_date = trim( $datetime->format('d/m/Y') );
     if($first_date==$now_date){
        $datetime->modify('+1 day'); 
@@ -124,9 +129,11 @@ do{
     }
     unset($datetime);
     //+1 den
-}while(true==1);
+}while(true);
+
 unset($html);
 unset($html_out);
+
 
 //Парсим обратные рейсы 
 $first_date = $_POST['first_date'];
@@ -136,7 +143,7 @@ do{
     $html_in = $html->find('div[id=marketColumn0]',0)->find('.flights-body',0);
     unset($html); 
     $datetime = DateTime::createFromFormat('d/m/Y', $first_date); 
-    $now_date = $datetime->format('Y-m-d'); 
+    $now_date = $datetime->format('d/m/Y'); 
 
     foreach ($html_in->find('.flight-row') as $value) {
         $date_in = $value->find('.flight-date',0)->find('span',0)->{'data-flight-departure'};
@@ -156,6 +163,10 @@ do{
     }
     $datetime = DateTime::createFromFormat('d/m/Y', $now_date);
     $datetime->modify('+1 day'); 
+    if($first_date == trim( $datetime->format('d/m/Y') )){
+       $datetime->modify('+1 day'); 
+    } 
+    $first_date = trim( $datetime->format('d/m/Y') );
     $first_date = trim( $datetime->format('d/m/Y') );
     if($first_date==$now_date){
        $datetime->modify('+1 day'); 
@@ -179,6 +190,7 @@ unset($html_in);
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
+                <td></td>
                 <td><?=$val['price']?></td>
             </tr>
         <?
@@ -194,6 +206,7 @@ unset($html_in);
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
+                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
                         </tr>
                     <?

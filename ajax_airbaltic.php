@@ -137,12 +137,12 @@ do{
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
+                <td></td>
                 <td><?=$val['price']?></td>
             </tr>
         <?
             $date = $key;
             for ($i=0; $i < $pback; $i++) { 
-                
                 $datetime = DateTime::createFromFormat('d/m/Y', $date);
                 $datetime->modify('+1 day');  
                 $date = $datetime->format('d/m/Y');
@@ -153,6 +153,7 @@ do{
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
+                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
                         </tr>
                     <?
