@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link href="/js/themes/blue/style.css" rel="stylesheet">
+  <link href="js/themes/blue/style.css" rel="stylesheet">
     <link href="bootstrap/css/style.css" rel="stylesheet">
   <link href="bootstrap/datepicker/css/datepicker.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -122,6 +122,6 @@
 </div>
 </div>
   <script type="text/javascript" src="js/jquery.tablesorter.js"></script> 
-    <script src="/js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
