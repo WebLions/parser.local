@@ -24,7 +24,7 @@
   <li class="select-parser" data-id="wizzair" ><a href="#">wizzair.com</a></li>
   <li class="select-parser" data-id="norwegian"><a href="#">norwegian.no</a></li>
   <li class="select-parser" data-id="airbaltic"><a href="#">airbaltic.com</a></li>
-  <li class="select-parser" data-id="etc" ><a href="#">etc</a></li>
+  <li class="select-parser" data-id="IATA" ><a href="#">etc</a></li>
 <button style="float:right;" class="btn btn-primary" id="search" type="submit">Вывести</button>
 </ul>
 

@@ -22,6 +22,7 @@ $datetime = DateTime::createFromFormat('d/m/Y', $first_date);
 $D_Day = $datetime->format('d');
 $R_Day = $D_Day;
 $D_Month = $datetime->format('Ym');
+$DL_Month = $D_Month;
 $R_Month = $D_Month;
 
 		$url = "http://www.norwegian.com/us/booking/flight-tickets/farecalendar/?";
@@ -31,6 +32,10 @@ $R_Month = $D_Month;
 		$cmouth = (int) floor($period / 30) +1;
 		
 		for ($j=0; $j < $cmouth; $j++) { 
+		
+		$url = "http://www.norwegian.com/us/booking/flight-tickets/farecalendar/?";
+		
+		$R_Month = $D_Month;
 		
 		$postdata = 'D_City='.$C1;
 		$postdata.= '&A_City='.$C2;
@@ -100,6 +105,7 @@ if(!empty($fly_out))
                 <td><?=$key?></td>
                 <td><?=$val?></td>
             </tr>
+						
         <?
             $date = $key;
             for ($i=0; $i < $pback; $i++) { 
@@ -109,6 +115,7 @@ if(!empty($fly_out))
                 if(!empty($fly_in[$date])){
                     ?>
                         <tr>
+							
                             <td class="ico-left-fly"></td>
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
@@ -118,12 +125,13 @@ if(!empty($fly_out))
                     <?
                 }
             }
-        }
-	}
-	$D_Month = DateTime::createFromFormat('Ym',$D_Month);
-	$D_Month->modify('+1 month');
-	$D_Month->format('Ym');
+        }	
 	
+	}	
+		$D_Month = DateTime::createFromFormat('d/m/Y', $first_date);
+		$D_Month->modify('+'.$j.' month');
+		$D_Month = $D_Month->format('Ym');
+		
 }
 
 
