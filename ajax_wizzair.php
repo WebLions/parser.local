@@ -1,5 +1,6 @@
 <?php
 
+        set_time_limit(9800);
 include "simple_html_dom.php";
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
@@ -58,7 +59,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
     curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 360);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 180);
     curl_setopt($ch, CURLOPT_FAILONERROR, 1);
     curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -89,7 +90,7 @@ do{
     $html_out = $html->find('div[id=marketColumn0]',0)->find('.flights-body',0);
     unset($html); 
     $datetime = DateTime::createFromFormat('d/m/Y', $first_date); 
-    $now_date = $datetime->format('Y-m-d'); 
+    $now_date = $datetime->format('d/m/Y'); 
 
     foreach ($html_out->find('.flight-row') as $value) {
         $date_out = $value->find('.flight-date',0)->find('span',0)->{'data-flight-departure'};
@@ -101,12 +102,16 @@ do{
                     preg_match('/\>(.*)$/', $str, $price );
 
                     $date_out = DateTime::createFromFormat('Y-m-d', $date_out);
-                    $date_out = $date_out = $date_out->format('d/m/Y');
+                    $date_out = $date_out->format('d/m/Y');
                     $fly_out[ $date_out ]['price'] = $price[1];
                     $now_date = $date_out;
+                    echo $now_date;
                 }
+            }else{
+                unset($date_out);
             }
     }
+    echo $now_date;
     $datetime = DateTime::createFromFormat('d/m/Y', $now_date);
     $datetime->modify('+1 day'); 
     $first_date = trim( $datetime->format('d/m/Y') );
