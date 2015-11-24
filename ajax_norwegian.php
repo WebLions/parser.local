@@ -13,7 +13,7 @@ $period = $_POST['pback'];
 $start_date = DateTime::createFromFormat('d/m/Y',$first_date);
 $start_date = '01/'. $start_date->format('m/Y');
 
-echo $start_date;
+
 
 $perback = $period + $_POST['select'];
 $pback = $_POST['select'];
@@ -50,31 +50,37 @@ $R_Month = $D_Month;
 					
 		foreach($html as $html_content){
 			
-					$html_content_out= $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_TableCellFareCallOutbound',0);
-					$html_content_in = $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_TableCellFareCallInbound',0);
+					$html_content_out = $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_ipcFareCalendarResultOutbound_pnlFareCalendarResult',0);
+					$html_content_in = $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_ipcFareCalendarResultInbound_pnlFareCalendarResult',0);
+										
 					
 					for($i=0;$i<30;$i++){
-						$start_date = DateTime::createFromFormat('d/m/Y',$start_date);
-						$start_date->modify('+1 day');
-						$start_date = $start_date->format('d/m/Y');
 						
 						
-						
+						 
+						 
 						if(!empty($html_content_out->find('div.fareCalPrice', $i)->innertext)&&(($html_content_out->find('div.fareCalPrice', $i)->innertext)!='&nbsp;')){
 							
+							
 							$price_out = $html_content_out->find('div.fareCalPrice', $i)->innertext;
-							//preg_match('/\>(.*)\</',$price, $price);
-							$fly_out [$start_date] = $price_in;						
+							
+							$fly_out [$start_date] = $price_out;		
+							
 						}
 							
 						
 						
 						if(!empty($html_content_in->find('div.fareCalPrice', $i)->innertext)&&(($html_content_in->find('div.fareCalPrice', $i)->innertext)!='&nbsp;')){
 							
+							
 							$price_in = $html_content_in->find('div.fareCalPrice', $i)->innertext;
-							//preg_match('/\>(.*)\</',$price, $price);
+							
 							$fly_in [$start_date] = $price_in;
 						}
+						
+						$start_date = DateTime::createFromFormat('d/m/Y',$start_date);
+						$start_date->modify('+1 day');
+						$start_date = $start_date->format('d/m/Y');
 							
 						
 						
@@ -83,7 +89,7 @@ $R_Month = $D_Month;
 					
 				}
 				
-/*if(!empty($fly_out))
+if(!empty($fly_out))
 	foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
@@ -92,7 +98,7 @@ $R_Month = $D_Month;
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
-                <td><?=$val['price']?></td>
+                <td><?=$val?></td>
             </tr>
         <?
             $date = $key;
@@ -107,7 +113,7 @@ $R_Month = $D_Month;
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
-                            <td><?=$fly_in[$date]['price']?></td>
+                            <td><?=$fly_in[$date]?></td>
                         </tr>
                     <?
                 }
@@ -116,13 +122,11 @@ $R_Month = $D_Month;
 	}
 	$D_Month = DateTime::createFromFormat('Ym',$D_Month);
 	$D_Month->modify('+1 month');
-	$D_Month->format('Ym');*/
-	echo '<pre>';
-	print_r($fly_out);
-	
-	echo $url.$postdata;
+	$D_Month->format('Ym');
 	
 }
+
+
 
 
 
