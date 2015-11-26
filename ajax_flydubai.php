@@ -1,4 +1,6 @@
+
 <?php
+
 define('MAX_FILE_SIZE',9000000);
 include "simple_html_dom.php";
 include "lib/air_flydubai.php";
@@ -22,7 +24,8 @@ $raz = $date->format('d') - 1;
 
 $period = $_POST['pback'] + $raz ;
 $pback = $_POST['select'];
-$cmouth = (int) floor($period / 30) + 1;
+$cmouth = (int) floor($period / 30);
+$cmouth = ($cmouth==0)? 1 : $cmouth ;
 $ara = true;
 
 for ($i=0; $i <= $cmouth; $i++) { 
@@ -49,6 +52,11 @@ $html = post_content('http://flights.flydubai.com/en/flights/search/', $postdata
 
 
 $html = next_day($origin, $destination, $first_date);
+
+$file = 'load.txt';
+$current = file_get_contents($file);
+$current = $i;
+file_put_contents($file, $current);
 
 $html_out[] = str_get_html($html[0]);
 $html_in[] = str_get_html($html[1]);
@@ -129,8 +137,7 @@ foreach ($html_in as $html) {
 
     }
 }
-
-
+/*
     foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
@@ -139,12 +146,11 @@ foreach ($html_in as $html) {
                 <td><?=$C1?></td>
                 <td><?=$C2?></td>
                 <td><?=$key?></td>
-                <td></td>
                 <td><?=$val['price']?></td>
             </tr>
         <?
             $date = $key;
-            for ($i=0; $i < $pback; $i++) { 
+            for ($i=0; $i < $period; $i++) { 
                 $datetime = DateTime::createFromFormat('d/m/Y', $date);
                 $datetime->modify('+1 day');  
                 $date = $datetime->format('d/m/Y');
@@ -155,7 +161,6 @@ foreach ($html_in as $html) {
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
-                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
                         </tr>
                     <?
@@ -163,8 +168,74 @@ foreach ($html_in as $html) {
             }
         }
 
+    }*/
+foreach ($fly_out as $key => $val) {
+        if(!empty($key)){   
+        ?>
+            <tr>
+            <td>
+                <table class="table">
+                <thead>
+                 <tr>
+                 <th></th>
+                 <th>Откуда</th>
+                 <th>Куда</th>
+                 <th>Датa вылета</th>
+                 <th>Цена</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                    <td class="ico-right-fly"></td>
+                    <td><?=$C1?></td>
+                    <td><?=$C2?></td>
+                    <td><?=$key?></td>
+                    <td><?=$val['price']?></td>
+                    </tr>
+                 </tbody>
+                </table>
+                <table class="table">
+                 <tbody>
+                         <?
+            $date = $key;
+            for ($i=0; $i < $pback; $i++) { 
+                $datetime = DateTime::createFromFormat('d/m/Y', $date);
+                $datetime->modify('+1 day');  
+                $date = $datetime->format('d/m/Y');
+                if(!empty($fly_in[$date])){
+                    ?>
+                    <tr>
+                        <td class="ico-left-fly"></td>
+                            <td><?=$C2?></td>
+                            <td><?=$C1?></td>
+                            <td><?=$date?></td>
+                            <td><?=$fly_in[$date]['price']?></td>
+                    </tr>
+                    <?
+                  }
+                }?>  
+                </tbody>
+                </table>
+                
+            </td>
+            <td style="display:none;">
+                <table class="table">
+                 <thead>
+                 <tr>
+                 <th></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                        <td><?=$val['price']?></td>
+                    </tr>
+                </tbody>
+                </table>
+            </td>                     
+        </tr>
+        <?
+        }
     }
 }
-
 
 ?>

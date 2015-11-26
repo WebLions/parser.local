@@ -1,7 +1,5 @@
 <?php
 
-
-
 include "simple_html_dom.php";
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
@@ -44,6 +42,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
+    curl_setopt($ch, CURLOPT_PROXY, "107.170.23.188");
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -54,10 +53,11 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, "Z://dcoo.txt");
-    curl_setopt($ch, CURLOPT_COOKIEFILE,"Z://dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEFILE,"dcoo.txt");
 
     $content = curl_exec( $ch );
+    echo $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
     if ($code == 301 || $code == 302) {
@@ -129,18 +129,34 @@ do{
 
 }while($d<$perback);
 
-    foreach ($fly_out as $key => $val) {
+foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
             <tr>
-                <td class="ico-right-fly"></td>
-                <td><?=$C1?></td>
-                <td><?=$C2?></td>
-                <td><?=$key?></td>
-                <td></td>
-                <td><?=$val['price']?></td>
-            </tr>
-        <?
+            <td>
+                <table class="table">
+                <thead>
+                 <tr>
+                 <th></th>
+                 <th>Откуда</th>
+                 <th>Куда</th>
+                 <th>Датa вылета</th>
+                 <th>Цена</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                    <td class="ico-right-fly"></td>
+                    <td><?=$C1?></td>
+                    <td><?=$C2?></td>
+                    <td><?=$key?></td>
+                    <td><?=$val['price']?></td>
+                    </tr>
+                 </tbody>
+                </table>
+                <table class="table">
+                 <tbody>
+                         <?
             $date = $key;
             for ($i=0; $i < $pback; $i++) { 
                 $datetime = DateTime::createFromFormat('d/m/Y', $date);
@@ -148,19 +164,37 @@ do{
                 $date = $datetime->format('d/m/Y');
                 if(!empty($fly_in[$date])){
                     ?>
-                        <tr>
-                            <td class="ico-left-fly"></td>
+                    <tr>
+                        <td class="ico-left-fly"></td>
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
-                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
-                        </tr>
+                    </tr>
                     <?
-                }
-            }
+                  }
+                }?>  
+                </tbody>
+                </table>
+                
+            </td>
+            <td style="display:none;">
+                <table class="table">
+                 <thead>
+                 <tr>
+                 <th></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                        <td><?=$val['price']?></td>
+                    </tr>
+                </tbody>
+                </table>
+            </td>                     
+        </tr>
+        <?
         }
-
     }
 
 //print_r($fly_out);

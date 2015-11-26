@@ -87,21 +87,24 @@
   <br>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
-  
-<table class="table table-striped" id="myTable" class="tablesorter">
-<thead>
- <tr>
- <th></th>
- <th>Откуда</th>
- <th>Куда</th>
- <th>Датa вылета</th>
- <th>Цена</th>
- </tr>
- </thead>
- 
+
+<div class="progress hidden">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+    <span class="sr-only">70% Complete</span>
+  </div>
+</div>
+
+  <a href="#" id="trigger-l">Сортировать по цене</a>
+<table class="tablesorter table table-striped" id="myTable">
+         <thead>
+         <tr>
+         <th></th>
+         <th></th>
+         </tr>
+         </thead>
  <tbody id="result">
 
  </tbody>
