@@ -4,7 +4,7 @@
 	$('.datepicker').datepicker({
 		format:"dd/mm/yyyy"
 	});
-	
+
 	$(".select-parser").click(function(){
 		
 		$("#sform").attr('data-ajax',$(this).attr('data-id'));
@@ -40,7 +40,7 @@
 		$.post("/ajax_"+parser+".php", $( "#sform" ).serialize(), function(data){
 				$("#result").html(data);
 				result = data;
-				$("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+				$("#myTable").tablesorter();
 			});
 		}	
 			return false;
@@ -82,7 +82,21 @@
 	$( ".city-list-1" ).delegate(".city .del-city", "click", function(){
 		$(this).parent().remove();
 	});
+	$("#trigger-l").click(function() { 
+		if(typeof flag == "undefined")
+			flag = true;
+		if(flag){
+        	var sorting = [[1,0]];
+        	flag = false;
+		}
+        else{
+        	var sorting = [[1,1]];
+        	flag = true;
+        }
 
+        $("#myTable").trigger("sorton",[sorting]); 
+        return false; 
+    }); 
   });
 
 })(jQuery);

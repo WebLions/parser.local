@@ -68,7 +68,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_COOKIEFILE,"Z://dcoo.txt");
 
     $content = curl_exec( $ch );
-   // echo $content;
+   //echo $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
     if ($code == 301 || $code == 302) {
@@ -182,18 +182,34 @@ do{
 unset($html);
 unset($html_in);
 
-    foreach ($fly_out as $key => $val) {
+foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
             <tr>
-                <td class="ico-right-fly"></td>
-                <td><?=$C1?></td>
-                <td><?=$C2?></td>
-                <td><?=$key?></td>
-                <td></td>
-                <td><?=$val['price']?></td>
-            </tr>
-        <?
+            <td>
+                <table class="table">
+                <thead>
+                 <tr>
+                 <th></th>
+                 <th>Откуда</th>
+                 <th>Куда</th>
+                 <th>Датa вылета</th>
+                 <th>Цена</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                    <td class="ico-right-fly"></td>
+                    <td><?=$C1?></td>
+                    <td><?=$C2?></td>
+                    <td><?=$key?></td>
+                    <td><?=$val['price']?></td>
+                    </tr>
+                 </tbody>
+                </table>
+                <table class="table">
+                 <tbody>
+                         <?
             $date = $key;
             for ($i=0; $i < $pback; $i++) { 
                 $datetime = DateTime::createFromFormat('d/m/Y', $date);
@@ -201,17 +217,35 @@ unset($html_in);
                 $date = $datetime->format('d/m/Y');
                 if(!empty($fly_in[$date])){
                     ?>
-                        <tr>
-                            <td class="ico-left-fly"></td>
+                    <tr>
+                        <td class="ico-left-fly"></td>
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
-                            <td></td>
                             <td><?=$fly_in[$date]['price']?></td>
-                        </tr>
+                    </tr>
                     <?
-                }
-            }
+                  }
+                }?>  
+                </tbody>
+                </table>
+                
+            </td>
+            <td style="display:none;">
+                <table class="table">
+                 <thead>
+                 <tr>
+                 <th></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                        <td><?=$val['price']?></td>
+                    </tr>
+                </tbody>
+                </table>
+            </td>                     
+        </tr>
+        <?
         }
-
     }
