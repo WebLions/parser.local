@@ -97,6 +97,9 @@
         $("#myTable").trigger("sorton",[sorting]); 
         return false; 
     }); 
+    $("#clear").click(function(){
+    	$('#result').empty();
+    });
   });
 
 })(jQuery);

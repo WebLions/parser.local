@@ -98,6 +98,7 @@
 </div>
 
   <a href="#" id="trigger-l">Сортировать по цене</a>
+  <a href="#" id="clear">Очистить</a>
 <table class="tablesorter table table-striped" id="myTable">
          <thead>
          <tr>

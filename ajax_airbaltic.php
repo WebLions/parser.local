@@ -42,7 +42,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
-    curl_setopt($ch, CURLOPT_PROXY, "107.170.23.188");
+    //curl_setopt($ch, CURLOPT_PROXY, "107.170.23.188");
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -57,7 +57,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_COOKIEFILE,"dcoo.txt");
 
     $content = curl_exec( $ch );
-    echo $content;
+    //echo $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
     if ($code == 301 || $code == 302) {
@@ -103,7 +103,7 @@ unset($html);
 $datetime = DateTime::createFromFormat('d/m/Y', $first_date);
 $date_now = $datetime->format('d/m/Y');
 $datetime->modify('+3 day');
-
+$d=0;
 do{
 	$page = post_content($url, $Destination, $Origin, $datetime->format('d.m.Y') );
 	$html = str_get_html($page);
