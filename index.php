@@ -36,26 +36,42 @@
 <div class="row">
   <div class="col-md-12">
     <div class="input-group">
+	
 	<br>
-<div class="input-group input-group-sm">
-<!--
-  <span class="input-group-addon add-city-1" id="sizing-addon3">Город вылета+</span>
-  <div class="city-list-1"></div> 
-  <input type="hidden" name="Origin" id="city-1" value="KBP">
-  <div id="select-1" style="display:none"><ul id="airlist"></ul></div>
-  -->
-  <span class="input-group-addon" id="sizing-addon3">Город #1</span>
-  <input type="text" name="Origin" id="city-1" value="KBP" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
 
-  <span class="input-group-addon" id="sizing-addon3">Город #2</span>
-  <input type="text" name="Destination" id="city-2" value="WAW" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
+ <div class="input-group input-group-sm">
+  <input type="hidden" name="Origin" id="city-1"> 
+  <input type="hidden" name="Destination" id="city-2"> 
+ 
+  <span class="input-group-addon" id="sizing-addon3">Город #1</span>
+  <input type="text" name="Origin" id="country1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
+  <div id = "info1" style = "position:absolute;background-color:#428BCA; height:200px;width:141px;z-index: 1;display:none;">
+	<ul style = "color:#FFFFFF;list-style-type: none;margin-left: 5px;padding-left: 5px;margin-top: 20px;padding-top: 20px" id="country_id1">
+			
+	</ul>
+  </div>
+
   
+  
+  <span class="input-group-addon" id="sizing-addon3">Город #2</span>
+  <input type="text" name="Destination" id="country2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
+  <div id = "info2" style = "position:absolute;background-color:#428BCA; height:200px;width:141px;z-index: 1;display:none;" >
+	<ul style = "color:#FFFFFF;list-style-type: none;margin-left: 5px;padding-left: 5px;margin-top: 20px;padding-top: 20px" id="country_id2">
+		
+	</ul>
+  </div>
+  
+    
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
   <input type="text" name="first_date" class="form-control datepicker" data-provide="datepicker" placeholder="Дата #1" aria-describedby="sizing-addon3">
+ 
+  
   
   <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
   <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3">
-
+ 
+	
+ 
   <span class="input-group-addon" id="sizing-addon3">Обратный рейс</span>
   <select name="select" class="selectpicker form-control" style="padding:5px 0px;">
     <option>1</option> 
@@ -73,6 +89,7 @@
     <option>13</option>
     <option>14</option>
   </select>
+ 
 </div>
  
  </div><!-- /input-group -->

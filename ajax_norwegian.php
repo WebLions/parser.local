@@ -2,6 +2,7 @@
 
 include "simple_html_dom.php";
 include "lib/air_norwegian.php";
+include 'lib/air_ports.php';
 
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
