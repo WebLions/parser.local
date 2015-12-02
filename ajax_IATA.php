@@ -2,26 +2,35 @@
 
 include "simple_html_dom.php";
 
-$url = "http://www.nationsonline.org/oneworld/IATA_Codes/IATA_Code_";
+$url = "https://en.wikipedia.org/wiki/List_of_airports_by_IATA_code:_";
 
 $group = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 
 foreach($group as $letter){
 	
-	$url.=$letter.".htm";
+	$url.=$letter;
 	$html[] = file_get_html($url);
-	
-	foreach($html as $html_content){
+	$url = "https://en.wikipedia.org/wiki/List_of_airports_by_IATA_code:_";
+}
+	foreach($html as $table){
 		
-		$IATA = $html_content->find('.tb86 tr td',0)->innertext;
-		$air_port = $html_content->find('.tb86 tr td',1)->innertext;
+			
+		foreach($table->find('tr') as $row){
 		
-		$result = $IATA." ".$air_port;
+		$code = $row->find('td',0)->innertext;
+		$air_port = $row->find('td',2)->innertext;
+		$air_port = str_replace("'","",$air_port);		
+		$result[$code] = "'".$air_port."',";
 		
-		echo $result.'<br>';
+		}
+			
 		
 	}
-	$url = "http://www.nationsonline.org/oneworld/IATA_Codes/IATA_Code_";
-}
+	
+	
+	echo '<pre>';
+	print_r($result);
+	
+
 
  ?>

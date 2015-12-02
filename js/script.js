@@ -83,5 +83,44 @@
 	});
 
   });
+  
+	$("#country1").keyup(function(){
+		var key = $(this).val();
+				
+		$.post("get_codes.php", {key : key}, function (data){
+		
+			$("#info1").show();
+			$("#country_id1").html(data);		
+			});
+				
+	});
+	$("#country_id1").delegate("li","click", function(){
+				
+		$("#country1").val($(this).html());
+		$("#city-1").val($(this).html());
+		$('#info').hide();
+		
+	});
+	
+	$("#country2").keyup(function(){
+		var key = $(this).val();
+				
+		$.post("get_codes.php", {key : key}, function (data){
+		
+			$("#info2").show();
+			$("#country_id2").html(data);		
+			});
+		});		
+	
+	$("#country_id2").delegate("li","click", function(){
+				
+		$("#country2").val($(this).html());
+		$("#city-2").val($(this).html());
+		$('#info').hide();
+		
+	});
+
+	
+ 
 
 })(jQuery);
