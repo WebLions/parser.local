@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Parser Settings</title>
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link href="/js/themes/blue/style.css" rel="stylesheet">
+  <link href="js/themes/blue/style.css" rel="stylesheet">
     <link href="bootstrap/css/style.css" rel="stylesheet">
   <link href="bootstrap/datepicker/css/datepicker.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -104,22 +104,25 @@
   <br>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
-  
-<table class="table table-striped">
-<thead>
- <tr>
-	<th></th>
- <th>Откуда</th>
- <th>Куда</th>
- <th>Датa вылета</th>
 
- <th>Цена</th>
- </tr>
- </thead>
- 
+<div class="progress hidden">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+    <span class="sr-only">70% Complete</span>
+  </div>
+</div>
+
+  <a href="#" id="trigger-l">Сортировать по цене</a>
+  <a href="#" id="clear">Очистить</a>
+<table class="tablesorter table table-striped" id="myTable">
+         <thead>
+         <tr>
+         <th></th>
+         <th></th>
+         </tr>
+         </thead>
  <tbody id="result">
 
  </tbody>
@@ -139,6 +142,7 @@
 </div>
 </div>
 </div>
-    <script src="/js/script.js"></script>
+  <script type="text/javascript" src="js/jquery.tablesorter.js"></script> 
+    <script src="js/script.js"></script>
 </body>
 </html>
