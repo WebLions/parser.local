@@ -115,7 +115,7 @@
 	$("#country_id1").delegate("li","click", function(){
 				
 		$("#country1").val($(this).html());
-		$("#city-1").val($(this).html());
+		$("#city-1").val($(this).attr("value"));
 		$('#info1').hide();
 		
 	});
@@ -133,7 +133,7 @@
 	$("#country_id2").delegate("li","click", function(){
 				
 		$("#country2").val($(this).html());
-		$("#city-2").val($(this).html());
+		$("#city-2").val($(this).attr("value"));
 		$('#info2').hide();
 		
 	});
