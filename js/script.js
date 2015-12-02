@@ -116,7 +116,7 @@
 				
 		$("#country1").val($(this).html());
 		$("#city-1").val($(this).html());
-		$('#info').hide();
+		$('#info1').hide();
 		
 	});
 	
@@ -134,7 +134,7 @@
 				
 		$("#country2").val($(this).html());
 		$("#city-2").val($(this).html());
-		$('#info').hide();
+		$('#info2').hide();
 		
 	});
 
