@@ -5,7 +5,7 @@ include "lib/air_flydubai.php";
 set_time_limit(9800);
 
     function search($Y, $uagent, $id){
-        $cur = curl_init( $url );
+        $cur = curl_init(  );
         curl_setopt($cur, CURLOPT_URL, 'http://flights.flydubai.com/en/results/onemonthviewsegment/?segmentid='.$id.'&');
         curl_setopt($cur, CURLOPT_HEADER, true);
         curl_setopt($cur, CURLOPT_ENCODING, "gzip, deflate");
@@ -45,7 +45,7 @@ function post_content($first_date,$air_origin,$Origin,$air_destination,$Destinat
     $postdata.= 'FormModel.PromoCode=&';
     $postdata.= 'flightSearch=Show+flights';
 
-    $ch = curl_init( $url );
+    $ch = curl_init( );
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
