@@ -8,6 +8,12 @@
 		define('MAX_FILE_SIZE',9000000);
 
 
+		if(empty($_POST['first_date'])) exit("Дата не введенна");
+		if(empty($_POST['Origin'])) exit("Не указан город 1");
+		if(empty($_POST['Destination'])) exit("Не указан город 2");
+		if(empty($_POST['pback'])) exit("Не указан диапазон");
+
+
 		$userID = file_get_contents('http://www.flypgs.com/Services/AdaraHandler.ashx');
 
 		//INFO
