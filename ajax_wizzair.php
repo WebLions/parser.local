@@ -4,8 +4,8 @@
 include "simple_html_dom.php";
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
-$C1 = $Origin;
-$C2 = $Destination;
+$C1 = trim($_POST['Origi']); 
+$C2 = trim($_POST['Destinatio']);
 $first_date = $_POST['first_date'];
 $period = $_POST['pback'];
 $perback = $period + $_POST['select'];
@@ -23,10 +23,10 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION,1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER,1); 
-        curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
+        curl_setopt($curl, CURLOPT_ENCODING, "gzip");
         curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
-        curl_setopt($curl, CURLOPT_COOKIEJAR, "Z://dcoo.txt");
-        curl_setopt($curl, CURLOPT_COOKIEFILE, "Z://dcoo.txt");
+        curl_setopt($curl, CURLOPT_COOKIEJAR, "dcoo.txt");
+        curl_setopt($curl, CURLOPT_COOKIEFILE, "dcoo.txt");
         $out = curl_exec($curl);
         curl_close($curl);
     }     
@@ -64,8 +64,8 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, "Z://dcoo.txt");
-    curl_setopt($ch, CURLOPT_COOKIEFILE,"Z://dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEFILE,"dcoo.txt");
 
     $content = curl_exec( $ch );
    //echo $content;
