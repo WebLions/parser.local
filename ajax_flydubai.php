@@ -8,7 +8,7 @@ set_time_limit(9800);
         $cur = curl_init(  );
         curl_setopt($cur, CURLOPT_URL, 'http://flights.flydubai.com/en/results/onemonthviewsegment/?segmentid='.$id.'&');
         curl_setopt($cur, CURLOPT_HEADER, true);
-        curl_setopt($cur, CURLOPT_ENCODING, "gzip, deflate");
+        curl_setopt($cur, CURLOPT_ENCODING, "gzip");
         curl_setopt($cur, CURLOPT_USERAGENT, $uagent);
         curl_setopt($cur, CURLOPT_COOKIEJAR, "coo.txt");
         curl_setopt($cur, CURLOPT_COOKIEFILE,"coo.txt");
@@ -69,9 +69,12 @@ function post_content($first_date,$air_origin,$Origin,$air_destination,$Destinat
 $C1 = trim($_POST['Origin']);   
 $C2 = trim($_POST['Destination']);
 
-$Origin = trim($_POST['Origin']); 
-$Destination = trim($_POST['Destination']);
-
+$Origin = trim($_POST['Origi']); 
+$Destination = trim($_POST['Destinatio']);
+if(empty($_POST['first_date'])) exit("Дата не введенна");
+if(empty($_POST['Origin'])) exit("Не указан город 1");
+if(empty($_POST['Destination'])) exit("Не указан город 2");
+if(empty($_POST['pback'])) exit("Не указан диапазон");
 $search_date = $first_date = $_POST['first_date'];
 $search_date = DateTime::createFromFormat('d/m/Y', $search_date);
 
@@ -298,7 +301,7 @@ foreach ($html_in as $html) {
         }
 
     }*/
-  
+ if(!empty($fly_out)){ 
 foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
@@ -372,5 +375,7 @@ foreach ($fly_out as $key => $val) {
             
         }
     }
-
+}else{
+    echo "Рейсы отсутствуют";
+}
 ?>
