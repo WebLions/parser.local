@@ -3,8 +3,9 @@
 include "simple_html_dom.php";
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
-$C1 = $Origin;
-$C2 = $Destination;
+$C1 = trim($_POST['Origi']); 
+$C2 = trim($_POST['Destinatio']); 
+
 $first_date = $_POST['first_date'];
 $period = $_POST['pback'];
 $perback = $period + $_POST['select'];
@@ -37,6 +38,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     $postdata.= '&flt_leaving_on='.$first_date;
     $postdata.= '&flt_returning_on='.$first_date;
     $postdata.= '&evoucher%5B%5D=';
+
 
     $ch = curl_init( $url );
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -135,7 +137,7 @@ do{
 foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
-            <tr>
+            <tr class="flyline">
             <td>
                 <table class="table">
                 <thead>

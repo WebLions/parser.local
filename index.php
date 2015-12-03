@@ -44,7 +44,7 @@
   <input type="hidden" name="Destination" id="city-2"> 
  
   <span class="input-group-addon" id="sizing-addon3">Город #1</span>
-  <input type="text" name="Origin" id="country1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
+  <input type="text" name="Origi" id="country1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3">
   <div id = "info1" style = "position:absolute;background-color:#428BCA; height:200px;width:141px;z-index: 1;display:none;">
 	<ul style = "color:#FFFFFF;list-style-type: none;margin-left: 5px;padding-left: 5px;margin-top: 20px;padding-top: 20px" id="country_id1">
 			
@@ -54,7 +54,7 @@
   
   
   <span class="input-group-addon" id="sizing-addon3">Город #2</span>
-  <input type="text" name="Destination" id="country2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
+  <input type="text" name="Destinatio" id="country2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3">
   <div id = "info2" style = "position:absolute;background-color:#428BCA; height:200px;width:141px;z-index: 1;display:none;" >
 	<ul style = "color:#FFFFFF;list-style-type: none;margin-left: 5px;padding-left: 5px;margin-top: 20px;padding-top: 20px" id="country_id2">
 		

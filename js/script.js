@@ -50,7 +50,7 @@
 
 		$(".save").html('Сохранение: <img src="/img/238.GIF">');
 
-		var data = result;
+		var data = $("#result").html();
 		var title = $("#sform").attr('data-ajax');
 
 		$.post("/save_exel.php", {data: data, title: title}, function(data){

@@ -8,7 +8,7 @@ set_time_limit(9800);
         $cur = curl_init(  );
         curl_setopt($cur, CURLOPT_URL, 'http://flights.flydubai.com/en/results/onemonthviewsegment/?segmentid='.$id.'&');
         curl_setopt($cur, CURLOPT_HEADER, true);
-        curl_setopt($cur, CURLOPT_ENCODING, "gzip, deflate");
+        curl_setopt($cur, CURLOPT_ENCODING, "gzip");
         curl_setopt($cur, CURLOPT_USERAGENT, $uagent);
         curl_setopt($cur, CURLOPT_COOKIEJAR, "coo.txt");
         curl_setopt($cur, CURLOPT_COOKIEFILE,"coo.txt");
