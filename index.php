@@ -116,7 +116,6 @@
 
   <a href="#" id="trigger-l">Сортировать по цене</a>
   <a href="#" id="clear">Очистить</a>
-  <a href="#" id="test">Проба</a>  
 <table class="tablesorter table table-striped" id="myTable">
          <thead>
          <tr>
