@@ -2,6 +2,11 @@
 
         set_time_limit(9800);
 include "simple_html_dom.php";
+if(empty($_POST['first_date'])) exit("Дата не введенна");
+if(empty($_POST['Origin'])) exit("Не указан город 1");
+if(empty($_POST['Destination'])) exit("Не указан город 2");
+if(empty($_POST['pback'])) exit("Не указан диапазон");
+
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
 $C1 = trim($_POST['Origi']); 
