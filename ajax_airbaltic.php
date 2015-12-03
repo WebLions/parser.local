@@ -21,7 +21,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     $postdata.= '&p=bti';
     $postdata.= '&pos=RU';
     $postdata.= '&l=ru';
-    $postdata.= '&srcsystem=https%3A%2F%2Fwww.airbaltic.com%2Fru%2Findex';
+    //$postdata.= '&srcsystem=https%3A%2F%2Fwww.airbaltic.com%2Fru%2Findex';
     $postdata.= '&traveltype=bti';
     $postdata.= '&origin='.$Origin;
     $postdata.= '&origin_type=A';
@@ -42,7 +42,9 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
-    //curl_setopt($ch, CURLOPT_PROXY, "107.170.23.188");
+   // curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 1); 
+    //curl_setopt($ch, CURLOPT_PROXY, "104.202.117.242:80");
+   // curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -67,6 +69,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
         return post_content($newurl, $Origin, $Destination, $first_date);
     }else{
         curl_close( $ch );
+        //echo $content;
         return $content;
     }
 

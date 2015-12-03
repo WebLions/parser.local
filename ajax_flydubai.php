@@ -20,7 +20,7 @@ set_time_limit(9800);
         if(strpos($test->find('.absoluteHeading',0)->innertext, $Y)) 
             return $html;
         else
-            return search_out($Y, $uagent, $id);
+            return search($Y, $uagent, $id);
     }
 
 function post_content($first_date,$air_origin,$Origin,$air_destination,$Destination) {  
@@ -69,8 +69,8 @@ function post_content($first_date,$air_origin,$Origin,$air_destination,$Destinat
 $C1 = trim($_POST['Origin']);   
 $C2 = trim($_POST['Destination']);
 
-$Origin = $ru_air[$C1];
-$Destination = $ru_air[$C2];
+$Origin = trim($_POST['Origin']); 
+$Destination = trim($_POST['Destination']);
 
 $search_date = $first_date = $_POST['first_date'];
 $search_date = DateTime::createFromFormat('d/m/Y', $search_date);
