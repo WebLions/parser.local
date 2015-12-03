@@ -69,9 +69,9 @@ function post_content($first_date,$air_origin,$Origin,$air_destination,$Destinat
 $C1 = trim($_POST['Origin']);   
 $C2 = trim($_POST['Destination']);
 
-$Origin = trim($_POST['Origin']); 
-$Destination = trim($_POST['Destination']);
-
+$Origin = trim($_POST['Origi']); 
+$Destination = trim($_POST['Destinatio']);
+if(empty($_POST['first_date'])) exit("Дата не введенна");
 $search_date = $first_date = $_POST['first_date'];
 $search_date = DateTime::createFromFormat('d/m/Y', $search_date);
 
@@ -298,7 +298,7 @@ foreach ($html_in as $html) {
         }
 
     }*/
-  
+ if(!empty($fly_out)){ 
 foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
@@ -372,5 +372,7 @@ foreach ($fly_out as $key => $val) {
             
         }
     }
-
+}else{
+    echo "Рейсы отсутствуют";
+}
 ?>

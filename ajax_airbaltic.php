@@ -133,7 +133,7 @@ do{
 	$datetime->modify('+6 day');
 
 }while($d<$perback);
-
+if(!empty($fly_out)){
 foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
@@ -201,5 +201,8 @@ foreach ($fly_out as $key => $val) {
         <?
         }
     }
+}else{
+    echo "Рейсы отсутствуют";
+}
 
 //print_r($fly_out);
