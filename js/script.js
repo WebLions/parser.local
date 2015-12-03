@@ -25,7 +25,6 @@
 		return false;		
 	});
 	
-	
 	$("#search").click(function(e){
 
 		$("#result").html('<img src="/img/238.GIF">');
