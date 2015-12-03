@@ -2,10 +2,15 @@
 
         set_time_limit(9800);
 include "simple_html_dom.php";
+if(empty($_POST['first_date'])) exit("Дата не введенна");
+if(empty($_POST['Origin'])) exit("Не указан город 1");
+if(empty($_POST['Destination'])) exit("Не указан город 2");
+if(empty($_POST['pback'])) exit("Не указан диапазон");
+
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
-$C1 = $Origin;
-$C2 = $Destination;
+$C1 = trim($_POST['Origi']); 
+$C2 = trim($_POST['Destinatio']);
 $first_date = $_POST['first_date'];
 $period = $_POST['pback'];
 $perback = $period + $_POST['select'];
@@ -14,8 +19,30 @@ $datetime = DateTime::createFromFormat('d/m/Y', $first_date);
 $search_date = $datetime->format('Y-m-d');
 $url = "https://wizzair.com/ru-RU/FlightSearch";
 
+function nexdate()
+{
+    $postdata = "isAjaxRequest=true&marketIndex=0&direction=1";
+    $ch = curl_init( );
+    curl_setopt($ch, CURLOPT_URL, "https://wizzair.com/ru-RU/Select-resource");
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+    curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 180);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEFILE,"dcoo.txt");
+    $content = curl_exec( $ch );
+    return $content;
+}
 function post_content ($url, $Origin, $Destination, $first_date) {  //первый запрос на выборку
-    if( $curl = curl_init() ) {
+  /*  if( $curl = curl_init() ) {
         $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
         curl_setopt($curl, CURLOPT_URL, 'https://wizzair.com/ru-RU/Select');
         curl_setopt($curl, CURLOPT_HEADER, true);
@@ -23,10 +50,10 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION,1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER,1); 
-        curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
+        curl_setopt($curl, CURLOPT_ENCODING, "gzip");
         curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
-        curl_setopt($curl, CURLOPT_COOKIEJAR, "Z://dcoo.txt");
-        curl_setopt($curl, CURLOPT_COOKIEFILE, "Z://dcoo.txt");
+        curl_setopt($curl, CURLOPT_COOKIEJAR, "dcoo.txt");
+        curl_setopt($curl, CURLOPT_COOKIEFILE, "dcoo.txt");
         $out = curl_exec($curl);
         curl_close($curl);
     }     
@@ -36,12 +63,12 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     $value = $html->find('form[id=SkySales] input',4)->value;
     $viewState = preg_replace('/\//','%2F', $viewState);
     $viewState = preg_replace('/\+/','%2B', $viewState);
-
+*/
     $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
 
     $postdata = '__EVENTTARGET=ControlGroupRibbonAnonNewHomeView_AvailabilitySearchInputRibbonAnonNewHomeView_ButtonSubmit';
-    $postdata.= '&__VIEWSTATE='.$viewState;
-    $postdata.= '&'.$name.'='.$value;
+  //  $postdata.= '&__VIEWSTATE='.$viewState;
+  //  $postdata.= '&'.$name.'='.$value;
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24OriginStation='.$Origin;
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24DestinationStation='.$Destination;
     $postdata.= '&ControlGroupRibbonAnonNewHomeView%24AvailabilitySearchInputRibbonAnonNewHomeView%24DepartureDate='.$first_date;
@@ -57,44 +84,64 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
+    curl_setopt($ch, CURLOPT_ENCODING, "gzip");
     curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
     curl_setopt($ch, CURLOPT_TIMEOUT, 180);
     curl_setopt($ch, CURLOPT_FAILONERROR, 1);
     curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, "Z://dcoo.txt");
-    curl_setopt($ch, CURLOPT_COOKIEFILE,"Z://dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "dcoo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEFILE,"dcoo.txt");
 
     $content = curl_exec( $ch );
-   //echo $content;
+    return $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
-    if ($code == 301 || $code == 302) {
+    /*
+    if ($code == 301 || $code == 302 || $code == 100) {
         preg_match('/Location:(.*?)\n/', $content, $matches);
         $newurl = trim(array_pop($matches));
         curl_close ($ch);
-        return post_content($newurl, $Origin, $Destination, $first_date);
+        return post_content($url, $Origin, $Destination, $first_date);
     }else{
         curl_close( $ch );
         return $content;
     }
+    if( $curl = curl_init() ) {
+        $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
+        curl_setopt($curl, CURLOPT_URL, 'https://wizzair.com/ru-RU/Select');
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION,1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER,1); 
+        curl_setopt($curl, CURLOPT_ENCODING, "gzip");
+        curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
+        curl_setopt($curl, CURLOPT_COOKIEJAR, "dcoo.txt");
+        curl_setopt($curl, CURLOPT_COOKIEFILE, "dcoo.txt");
+        $out = curl_exec($curl);
+        curl_close($curl);
+        echo $out;
+    } */
 
 }
 //Парсим рейсы туда
-
-do{   
     $html = post_content($url, $Origin, $Destination, $first_date);
-    
+do{   
+
     $html = str_get_html($html);
     $html_out = $html->find('div[id=marketColumn0]',0)->find('.flights-body',0);
     unset($html); 
+
     $datetime = DateTime::createFromFormat('d/m/Y', $first_date); 
     $now_date = $datetime->format('d/m/Y');
+
     foreach ($html_out->find('.flight-row') as $value) {
+
         $date_out = $value->find('.flight-date',0)->find('span',0)->{'data-flight-departure'};
             if( !empty( $date_out )){
+
                 preg_match('/(.*?)T/', $date_out, $m);
                 $date_out = $m[1];
                 if( empty( $fly_out[ $date_out ]) ){
@@ -106,15 +153,13 @@ do{
                     $fly_out[ $date_out ]['price'] = $price[1];
                     $now_date = $date_out;
                     //echo $now_date;
-                }else{
-                    $now_date = $date_out;
                 }
-            }else{
-                unset($date_out);
             }
+
     }
     //echo $first_date .'---'. $now_date."<br>";
     $datetime = DateTime::createFromFormat('d/m/Y', $now_date);
+    /*
     $datetime->modify('+1 day');
     if($first_date == trim( $datetime->format('d/m/Y') )){
        $datetime->modify('+1 day'); 
@@ -123,9 +168,11 @@ do{
     if($first_date==$now_date){
        $datetime->modify('+1 day'); 
        $first_date = trim( $datetime->format('d/m/Y') );
-    }
+    }*/
     if( $period < ( (strtotime($datetime->format('Y-m-d')) - strtotime($search_date)) / 86400) ){
         break;
+    }else{
+        $html = nexdate();
     }
     unset($datetime);
     //+1 den
@@ -137,15 +184,19 @@ unset($html_out);
 
 //Парсим обратные рейсы 
 $first_date = $_POST['first_date'];
+$html = post_content($url, $Destination, $Origin, $first_date);
+
 do{   
-    $html = post_content($url, $Destination, $Origin, $first_date);
+
     $html = str_get_html($html);
     $html_in = $html->find('div[id=marketColumn0]',0)->find('.flights-body',0);
     unset($html); 
+
     $datetime = DateTime::createFromFormat('d/m/Y', $first_date); 
     $now_date = $datetime->format('d/m/Y'); 
 
     foreach ($html_in->find('.flight-row') as $value) {
+
         $date_in = $value->find('.flight-date',0)->find('span',0)->{'data-flight-departure'};
             if( !empty( $date_in )){
                 preg_match('/(.*?)T/', $date_in, $m);
@@ -160,8 +211,10 @@ do{
                     $now_date = $date_in;
                 }
             }
+
     }
     $datetime = DateTime::createFromFormat('d/m/Y', $now_date);
+    /*
     $datetime->modify('+1 day'); 
     if($first_date == trim( $datetime->format('d/m/Y') )){
        $datetime->modify('+1 day'); 
@@ -171,9 +224,11 @@ do{
     if($first_date==$now_date){
        $datetime->modify('+1 day'); 
        $first_date = trim( $datetime->format('d/m/Y') );
-    }
+    }*/
     if( $perback < ( (strtotime($datetime->format('Y-m-d')) - strtotime($search_date)) / 86400) ){
         break;
+    }else{
+        $html = nexdate();
     }
     unset($datetime);
     //+1 den
@@ -182,6 +237,7 @@ do{
 unset($html);
 unset($html_in);
 
+if(!empty($fly_out)){
 foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
@@ -249,3 +305,6 @@ foreach ($fly_out as $key => $val) {
         <?
         }
     }
+}else{
+    echo "Рейсы отсутствуют";
+}
