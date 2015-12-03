@@ -9,7 +9,7 @@ include 'lib/air_ports.php';
 		
 		if( $key === substr($air_port, 0, strlen($key)) ) 
 		{
-			$data .='<li value ="'.$code.'">'.$air_port.'</li>';
+			$data .='<li value ="'.$code.'">'.$air_port.' ('.$code.')</li>';
 			$num++;
 			if($num>5){
 				break;
