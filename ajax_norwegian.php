@@ -6,8 +6,8 @@ include 'lib/air_ports.php';
 
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
-$C1 = $Origin;
-$C2 = $Destination;
+$C1 = $_POST['с1'];
+$C2 = $_POST['с2'];
 $first_date = $_POST['first_date'];
 $period = $_POST['pback'];
 
@@ -38,8 +38,8 @@ $R_Month = $D_Month;
 		
 		$R_Month = $D_Month;
 		
-		$postdata = 'D_City='.$C1;
-		$postdata.= '&A_City='.$C2;
+		$postdata = 'D_City='.$Origin;
+		$postdata.= '&A_City='.$Destination;
 		$postdata.= '&D_Day='.$D_Day;
 		$postdata.= '&D_Month='.$D_Month;
 		$postdata.= '&D_SelectedDay='.$D_Day;
@@ -60,17 +60,14 @@ $R_Month = $D_Month;
 					$html_content_in = $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_ipcFareCalendarResultInbound_pnlFareCalendarResult',0);
 										
 					
-					for($i=0;$i<30;$i++){
-						
-						
-						 
+					for($i=0;$i<30;$i++){						 
 						 
 						if(!empty($html_content_out->find('div.fareCalPrice', $i)->innertext)&&(($html_content_out->find('div.fareCalPrice', $i)->innertext)!='&nbsp;')){
 							
 							
-							$price_out = $html_content_out->find('div.fareCalPrice', $i)->innertext;
+						$price_out = $html_content_out->find('div.fareCalPrice', $i)->innertext;
 							
-							$fly_out [$start_date] = $price_out;		
+						$fly_out [$start_date] = $price_out;		
 							
 						}
 							
@@ -95,19 +92,34 @@ $R_Month = $D_Month;
 					
 				}
 				
-if(!empty($fly_out))
-	foreach ($fly_out as $key => $val) {
+foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>
             <tr>
-                <td class="ico-right-fly"></td>
-                <td><?=$C1?></td>
-                <td><?=$C2?></td>
-                <td><?=$key?></td>
-                <td><?=$val?></td>
-            </tr>
-						
-        <?
+            <td>
+                <table class="table">
+                <thead>
+                 <tr>
+                 <th></th>
+                 <th>Откуда</th>
+                 <th>Куда</th>
+                 <th>Датa вылета</th>
+                 <th>Цена</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                    <td class="ico-right-fly"></td>
+                    <td><?=$C1?></td>
+                    <td><?=$C2?></td>
+                    <td><?=$key?></td>
+                    <td><?=$val?></td>
+                    </tr>
+                 </tbody>
+                </table>
+                <table class="table">
+                 <tbody>
+                         <?
             $date = $key;
             for ($i=0; $i < $pback; $i++) { 
                 $datetime = DateTime::createFromFormat('d/m/Y', $date);
@@ -115,20 +127,38 @@ if(!empty($fly_out))
                 $date = $datetime->format('d/m/Y');
                 if(!empty($fly_in[$date])){
                     ?>
-                        <tr>
-							
-                            <td class="ico-left-fly"></td>
+                    <tr>
+                        <td class="ico-left-fly"></td>
                             <td><?=$C2?></td>
                             <td><?=$C1?></td>
                             <td><?=$date?></td>
                             <td><?=$fly_in[$date]?></td>
-                        </tr>
+                    </tr>
                     <?
-                }
-            }
-        }	
-	
-	}	
+                  }
+                }?>  
+                </tbody>
+                </table>
+                
+            </td>
+            <td style="display:none;">
+                <table class="table">
+                 <thead>
+                 <tr>
+                 <th></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                        <td><?=$val['price']?></td>
+                    </tr>
+                </tbody>
+                </table>
+            </td>                     
+        </tr>
+        <?
+        }
+    }
 		$D_Month = DateTime::createFromFormat('d/m/Y', $first_date);
 		$D_Month->modify('+'.$j.' month');
 		$D_Month = $D_Month->format('Ym');
