@@ -220,8 +220,16 @@ $uagent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like 
 
 	$ch = curl_init();  
  	//echo $url;
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($ch,CURLOPT_URL, 'http://www.norwegian.com/us/');
+	curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
+	curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
+	curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 180);
+	curl_setopt($ch, CURLOPT_COOKIEJAR, "coo.txt");
+	curl_setopt($ch, CURLOPT_COOKIEFILE,"coo.txt");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+
+	curl_setopt($ch,CURLOPT_URL,$url);
 	$content = curl_exec( $ch );
 	//echo $content;
 		
