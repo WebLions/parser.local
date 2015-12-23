@@ -1,6 +1,8 @@
 (function($){
 	$(window).load(function(){
 
+		$("#myTable").tablesorter();
+
 	$('.datepicker').datepicker({
 		format:"dd/mm/yyyy"
 	});
@@ -19,7 +21,10 @@
 	$(".select-parser").click(function(){
 		
 		$("#sform").attr('data-ajax',$(this).attr('data-id'));
-		
+
+		$('#result').empty();
+		$("#myTable").trigger("update");
+
 		if(!$(this).hasClass('active')){
 		
 			$(".select-parser").each(function(){
@@ -50,7 +55,7 @@
 		$.post("ajax_"+parser+".php", $( "#sform" ).serialize(), function(data){
 				$("#result").html(data);
 				result = data;
-				$("#myTable").tablesorter();
+				$("#myTable").trigger("update");
 			});
 		}	
 			return false;
@@ -109,6 +114,7 @@
     }); 
     $("#clear").click(function(){
     	$('#result').empty();
+		$("#myTable").trigger("update");
     });
   });
   
