@@ -5,6 +5,17 @@
 		format:"dd/mm/yyyy"
 	});
 
+	$(".change-fly").click(function(){
+		var country = $("#country2").val();
+		var city = $("#city-2").val();
+
+		$("#country2").val( $("#country1").val() );
+		$("#city-2").val( $("#city-1").val() );
+
+		$("#country1").val( country );
+		$("#city-1").val( city );
+	});
+
 	$(".select-parser").click(function(){
 		
 		$("#sform").attr('data-ajax',$(this).attr('data-id'));
@@ -27,7 +38,7 @@
 	
 	$("#search").click(function(e){
 
-		$("#result").html('<img src="/img/238.GIF">');
+		$("#result").html('<img src="img/238.GIF">');
 		if($('#city-2').val()=="911"){
 			$("#result").html('<div id="boom"><img src="/img/911.gif"></div>');
 			var audio = new Audio(); // Создаём новый элемент Audio
@@ -36,7 +47,7 @@
 		}else{
 		var parser = $("#sform").attr('data-ajax');
 		
-		$.post("/ajax_"+parser+".php", $( "#sform" ).serialize(), function(data){
+		$.post("ajax_"+parser+".php", $( "#sform" ).serialize(), function(data){
 				$("#result").html(data);
 				result = data;
 				$("#myTable").tablesorter();

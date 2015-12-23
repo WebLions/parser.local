@@ -62,3 +62,14 @@
 .add-city-1:hover{
 	cursor: pointer;
 }
+.change-fly
+{
+	width: 40px;
+	height: 40px;
+	background: url("../../img/update.png") no-repeat;
+	background-size: cover;
+}
+.change-fly:hover
+{
+	cursor: pointer;
+}

@@ -6,8 +6,8 @@ include 'lib/air_ports.php';
 
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
-$C1 = $_POST['с1'];
-$C2 = $_POST['с2'];
+$C1 = $air_ports[$_POST['c1']];
+$C2 = $air_ports[$_POST['c2']];
 $first_date = $_POST['first_date'];
 $period = $_POST['pback'];
 
@@ -40,25 +40,27 @@ $R_Month = $D_Month;
 		
 		$postdata = 'D_City='.$Origin;
 		$postdata.= '&A_City='.$Destination;
+        $postdata.= '&D_SelectedDay='.$D_Day;
 		$postdata.= '&D_Day='.$D_Day;
 		$postdata.= '&D_Month='.$D_Month;
-		$postdata.= '&D_SelectedDay='.$D_Day;
+        $postdata.= '&R_SelectedDay='.$R_Day;
 		$postdata.= '&R_Day='.$R_Day;
 		$postdata.= '&R_Month='.$R_Month;
-		$postdata.= '&R_SelectedDay='.$R_Day;
 		$postdata.= '&CurrencyCode=USD';
-		$postdata.= '&processid=8512';
+		$postdata.= '&TripType=2';
 		
 		$url.=$postdata;
-		
-		$html[] = file_get_html($url);
-		
+		//echo $url."<br>";
+         //echo "http://www.norwegian.com/us/booking/flight-tickets/farecalendar/?D_City=AAL&A_City=AGA&D_SelectedDay=21&D_Day=21&D_Month=201512&R_SelectedDay=21&R_Day=21&R_Month=201512&CurrencyCode=USD&TripType=2";
+		$html[] = post_content($url);
+            $html[0] = str_get_html($html[0]);
+		//print_r($html);
 					
 		foreach($html as $html_content){
-			
+                                                             #ctl01_ctl00_MainContentRegion_MainRegion_ctl00_ipcFareCalendarResultOutbound_pnlFareCalendarResult
 					$html_content_out = $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_ipcFareCalendarResultOutbound_pnlFareCalendarResult',0);
 					$html_content_in = $html_content->find('#ctl01_ctl00_MainContentRegion_MainRegion_ctl00_ipcFareCalendarResultInbound_pnlFareCalendarResult',0);
-										
+					//echo 	$html_content_in
 					
 					for($i=0;$i<30;$i++){						 
 						 
@@ -91,7 +93,7 @@ $R_Month = $D_Month;
 					
 					
 				}
-				
+if(!empty($fly_out))
 foreach ($fly_out as $key => $val) {
         if(!empty($key)){   
         ?>

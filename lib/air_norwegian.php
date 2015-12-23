@@ -214,15 +214,16 @@ $airports = array(
 					'ZRH' => 'Zurich'
 				);
 
-function post_content ($url) {
+function post_content($url) {
 	
 $uagent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
 
 	$ch = curl_init();  
- 
+ 	//echo $url;
     curl_setopt($ch,CURLOPT_URL,$url);
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 	$content = curl_exec( $ch );
+	//echo $content;
 		
 return $content;
 } 				
