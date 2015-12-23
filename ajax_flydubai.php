@@ -1,38 +1,47 @@
 <?php
+session_start();
 define('MAX_FILE_SIZE',9000000);
 include "simple_html_dom.php";
 include "lib/air_flydubai.php";
+include "lib/air_ports.php";
 set_time_limit(9800);
 
-    function search($Y, $uagent, $id){
-        $cur = curl_init(  );
-        curl_setopt($cur, CURLOPT_URL, 'http://flights.flydubai.com/en/results/onemonthviewsegment/?segmentid='.$id.'&');
-        curl_setopt($cur, CURLOPT_HEADER, true);
-        curl_setopt($cur, CURLOPT_ENCODING, "gzip");
-        curl_setopt($cur, CURLOPT_USERAGENT, $uagent);
-        curl_setopt($cur, CURLOPT_COOKIEJAR, "coo.txt");
-        curl_setopt($cur, CURLOPT_COOKIEFILE,"coo.txt");
-        curl_setopt($cur, CURLOPT_RETURNTRANSFER, 1);
-        $html = curl_exec($cur);
-        curl_close($cur);
-        $test = str_get_html($html);
-        //sleep(2);
-        if(strpos($test->find('.absoluteHeading',0)->innertext, $Y)) 
-            return $html;
-        else
-            return search($Y, $uagent, $id);
-    }
+$Origin = trim($_POST['Origin']); 
+$Destination = trim($_POST['Destination']);
 
-function post_content($first_date,$air_origin,$Origin,$air_destination,$Destination) {  
+
+$C1 = $air_ports[$Origin];
+$C2 = $air_ports[$Destination];
+
+if(empty($_POST['first_date'])) exit("Дата не введенна");
+if(empty($_POST['Origin'])) exit("Не указан город 1");
+if(empty($_POST['Destination'])) exit("Не указан город 2");
+if(empty($_POST['pback'])) exit("Не указан диапазон");
+$search_date = $first_date = $_POST['first_date'];
+$search_date = DateTime::createFromFormat('d/m/Y', $search_date);
+
+$period = $_POST['pback'];
+$pback = $_POST['select']; //граници поиска обратного дня
+$col = intval( ($period + $pback) / 7 );
+echo $col;
+//$html = post_content($first_date,$airports[$Origin],$Origin,$airports[$Destination],$Destination);
+$search_date = DateTime::createFromFormat('d/m/Y', $first_date);
+$search_date->modify("+3 day");
+$datetime = $search_date->format('m/d/Y 00:00:00');
+
+$first_date = $search_date->format('d/m/Y');
+
+
+if( $curl = curl_init() ) {
 
     $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
 
-    $url = "http://flights.flydubai.com/en/flights/search/";
+    $urls = "http://flights.flydubai.com/en/flights/search/";
 
     $postdata = 'roundSingle=on&';
-    $postdata.= 'FormModel.Origin='.$air_origin.'&';
+    $postdata.= 'FormModel.Origin='.$airports[$Origin].'&';
     $postdata.= 'FormModel.OriginAirportCode='.$Origin.'&';
-    $postdata.= 'FormModel.Destination='.$air_destination.'&';
+    $postdata.= 'FormModel.Destination='.$airports[$Destination].'&';
     $postdata.= 'FormModel.DestinationAirportCode='.$Destination.'&';
     $postdata.= 'txtDepartureDate='.$first_date.'&';
     $postdata.= 'FormModel.DepartureDate='.$first_date.'&';
@@ -45,43 +54,114 @@ function post_content($first_date,$air_origin,$Origin,$air_destination,$Destinat
     $postdata.= 'FormModel.PromoCode=&';
     $postdata.= 'flightSearch=Show+flights';
 
-    $ch = curl_init( );
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_HEADER, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-    curl_setopt($ch, CURLOPT_ENCODING, "gzip, deflate");
-    curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 180);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, "coo.txt");
-    curl_setopt($ch, CURLOPT_COOKIEFILE,"coo.txt");
-    $content = curl_exec( $ch );
-    curl_close( $ch );
+    curl_setopt($curl, CURLOPT_URL, $urls);
+    curl_setopt($curl, CURLOPT_HEADER, true);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate");
+    curl_setopt($curl, CURLOPT_USERAGENT, $uagent);
+    curl_setopt($curl, CURLOPT_COOKIESESSION, true);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 180);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
+    curl_setopt($curl, CURLOPT_COOKIEJAR, "coo.txt");
+    curl_setopt($curl, CURLOPT_COOKIEFILE,"coo.txt");
+    $content = curl_exec( $curl );
+    //echo $content;
 
-    $date = DateTime::createFromFormat('d/m/Y', $first_date);
-    $Y = $date->format('Y');
-    $html[0] = search($Y, $uagent, 1);
-    $html[1] = search($Y, $uagent, 2);
+    curl_setopt($curl, CURLOPT_POST, 0);
+    curl_setopt($curl, CURLOPT_ENCODING, "gzip, deflate, sdch");
+    curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/flights/search/');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    $out = curl_exec($curl);
+    //echo $out;
 
-    return $html;
+    curl_setopt($curl, CURLOPT_ENCODING, "gzip");
+    curl_setopt($curl, CURLOPT_POST, 0);
+    curl_setopt($curl, CURLOPT_URL, 'http://flights.flydubai.com/en/results/threedayview/');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    $out = curl_exec($curl);
+
+    //echo $out;
+
+    for($i = 0; $i<=$col; $i++)
+    {
+        $url = '';
+        $url.= 'http://flights.flydubai.com/en/results/changesegmentdate/?date='.urlencode($datetime);
+        $url.= '&origin='.$Origin;
+        $url.= '&destination='.$Destination;
+        $url.= '&originalsegmentid=1';
+        $url.= '&monthtabtype=Economy';
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+        $out = curl_exec($curl);
+        $html_out[] =  str_get_html($out);
+        //echo $out;
+        unset($out);
+
+        $url = '';
+        $url.= 'http://flights.flydubai.com/en/results/changesegmentdate/?date='.urlencode($datetime);
+        $url.= '&origin='.$Origin;
+        $url.= '&destination='.$Destination;
+        $url.= '&originalsegmentid=2';
+        $url.= '&monthtabtype=Economy';
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+        $out = curl_exec($curl);
+        $html_in[] =  str_get_html($out);
+        //echo $out;
+        unset($out);
+
+        sleep(1);
+        $datetime = DateTime::createFromFormat('m/d/Y H:i:s', $datetime);
+        $datetime->modify("+7 day");
+        $datetime = $datetime->format('m/d/Y 00:00:00');
+
+    }
+
+    curl_close($curl);
+
 }
-$C1 = trim($_POST['Origin']);   
-$C2 = trim($_POST['Destination']);
 
-$Origin = trim($_POST['Origi']); 
-$Destination = trim($_POST['Destinatio']);
-if(empty($_POST['first_date'])) exit("Дата не введенна");
-if(empty($_POST['Origin'])) exit("Не указан город 1");
-if(empty($_POST['Destination'])) exit("Не указан город 2");
-if(empty($_POST['pback'])) exit("Не указан диапазон");
-$search_date = $first_date = $_POST['first_date'];
-$search_date = DateTime::createFromFormat('d/m/Y', $search_date);
+foreach ($html_out as $html)
+{
+    foreach ($html->find('td.dayAmount') as $value)
+    {
+        //echo $value->id;
+        preg_match('/1_[A-Z]+_[A-Z]+_(.*)/', $value->id, $last_date);
+        //print_r($last_date);
+        if( isset($value->find('.pence', 0)->innertext) )
+        {
+            $preprice = str_replace(array("\r\n", "\r", "\n"), " ", $value->find('.pence', 0)->parent()->innertext);
+            //echo $value->find('.pence', 0)->parent()->innertext;
+            preg_match("/(.*?)<.*?>([0-9]+)</", $preprice, $output_array);
+            $price = $output_array[1] . $output_array[2];
+            //print_r($output_array);
+            $fly_out[$last_date[1]]['price'] = $price;
+        }
+    }
+}
+foreach ($html_in as $html)
+{
+    foreach ($html->find('td.dayAmount') as $value)
+    {
+        //echo $value->id;
+        preg_match('/2_[A-Z]+_[A-Z]+_(.*)/', $value->id, $last_date);
+        //print_r($last_date);
+        if( isset($value->find('.pence', 0)->innertext) )
+        {
+            $preprice = str_replace(array("\r\n", "\r", "\n"), " ", $value->find('.pence', 0)->parent()->innertext);
+            //echo $value->find('.pence', 0)->parent()->innertext;
+            preg_match("/(.*?)<.*?>([0-9]+)</", $preprice, $output_array);
+            $price = $output_array[1] . $output_array[2];
+            //print_r($output_array);
+            $fly_in[$last_date[1]]['price'] = $price;
+        }
+    }
+}
 
-$period = $_POST['pback'];
-$pback = $_POST['select']; //граници поиска обратного дня
-
-//$html = post_content($first_date,$airports[$Origin],$Origin,$airports[$Destination],$Destination);
+/*
 
 do{  
 

@@ -9,8 +9,8 @@ if(empty($_POST['pback'])) exit("Не указан диапазон");
 
 $Origin = trim($_POST['Origin']);   
 $Destination = trim($_POST['Destination']);
-$C1 = trim($_POST['Origi']); 
-$C2 = trim($_POST['Destinatio']);
+$C1 = trim($_POST['c1']); 
+$C2 = trim($_POST['c2']);
 $first_date = $_POST['first_date'];
 $period = $_POST['pback'];
 $perback = $period + $_POST['select'];
@@ -95,6 +95,7 @@ function post_content ($url, $Origin, $Destination, $first_date) {  //первы
     curl_setopt($ch, CURLOPT_COOKIEFILE,"dcoo.txt");
 
     $content = curl_exec( $ch );
+    //echo $content;
     return $content;
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     //echo $code;
