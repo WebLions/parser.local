@@ -51,8 +51,10 @@ $R_Month = $D_Month;
 		
 		$url.=$postdata;
 		//echo $url."<br>";
-         //echo "http://www.norwegian.com/us/booking/flight-tickets/farecalendar/?D_City=AAL&A_City=AGA&D_SelectedDay=21&D_Day=21&D_Month=201512&R_SelectedDay=21&R_Day=21&R_Month=201512&CurrencyCode=USD&TripType=2";
+//echo "http://www.norwegian.com/us/booking/flight-tickets/farecalendar/?D_City=AAL&A_City=AGA&D_SelectedDay=01&D_Day=01&D_Month=201601&R_SelectedDay=01&R_Day=01&R_Month=201601&CurrencyCode=USD&TripType=2";
 		$html[] = post_content($url);
+            //echo $html[0];
+
             $html[0] = str_get_html($html[0]);
 		//print_r($html);
 					
