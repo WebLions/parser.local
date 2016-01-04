@@ -387,20 +387,20 @@ foreach ($ac1 as $c1) {
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Откуда</th>
-                                    <th>Куда</th>
-                                    <th>Датa вылета</th>
-                                    <th>Цена</th>
+                                    <th style ="width: 3%"></th>
+                                    <th style ="width: 30%">Откуда</th>
+                                    <th style ="width: 30%">Куда</th>
+                                    <th style ="width: 30%">Датa вылета</th>
+                                    <th style ="width: 7%">Цена</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td class="ico-right-fly"></td>
-                                    <td><?= $C1 ?></td>
-                                    <td><?= $C2 ?></td>
+                                    <td><?= $air_ports[$c1] ?></td>
+                                    <td><?= $air_ports[$c2] ?></td>
                                     <td><?= $key ?></td>
-                                    <td><?= $val['price'] ?></td>
+                                    <td><?= $val ?></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -415,11 +415,11 @@ foreach ($ac1 as $c1) {
                                     if (!empty($fly_in[$date])) {
                                         ?>
                                         <tr>
-                                            <td class="ico-left-fly"></td>
-                                            <td><?= $C2 ?></td>
-                                            <td><?= $C1 ?></td>
-                                            <td><?= $date ?></td>
-                                            <td><?= $fly_in[$date]['price'] ?></td>
+                                            <td style ="width: 3%" class="ico-left-fly"></td>
+                                            <td style ="width: 30%"><?= $air_ports[$c2] ?></td>
+                                            <td style ="width: 30%"><?= $air_ports[$c1] ?></td>
+                                            <td style ="width: 30%"><?= $date ?></td>
+                                            <td style ="width: 7%"><?= $fly_in[$date] ?></td>
                                         </tr>
                                         <?
                                     }
@@ -444,12 +444,6 @@ foreach ($ac1 as $c1) {
                         </td>
                     </tr>
                     <?
-                    $date = DateTime::createFromFormat('d/m/Y', $key);
-                    //echo "<tr>". (strtotime($date->format('m/d/Y'))-strtotime($search_date->format('m/d/Y')))/86400 ."</tr>";
-                    if (($period) < (strtotime($date->format('m/d/Y')) - strtotime($search_date->format('m/d/Y'))) / 86400) {
-                        break;
-                    }
-
                 }
             }
         } else {
