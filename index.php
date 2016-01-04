@@ -44,7 +44,7 @@
   <input type="hidden" name="Destination" id="city-2"> 
  
   <span class="input-group-addon" id="sizing-addon3">Город #1</span>
-  <input autocomplete="off" type="text" id = "c1" name="c1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3" required>
+  <input  style ="height: 31px" autocomplete="off" type="text" id = "c1" name="c1" class="form-control" placeholder="Город #1" aria-describedby="sizing-addon3" required>
 
   <div id = "info1" style = "position:absolute;background-color:#428BCA; height:200px;width:141px;z-index: 1;display:none;">
 	<ul style = "color:#FFFFFF;list-style-type: none;margin-left: 5px;padding-left: 5px;margin-top: 20px;padding-top: 20px" id="country_id1">
@@ -55,7 +55,7 @@
      <span class="input-group-addon ico-right-fly change-fly" id = "sweg" style=""></span>
   
   <span class="input-group-addon" id="sizing-addon3">Город #2</span>
-  <input autocomplete="off" type="text" id="c2" name="c2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3" required>
+  <input style ="height: 31px" autocomplete="off" type="text" id="c2" name="c2" class="form-control" placeholder="Город #2" aria-describedby="sizing-addon3" required>
   <div id = "info2" style = "position:absolute;background-color:#428BCA; height:200px;width:141px;z-index: 1;display:none;" >
 	<ul style = "color:#FFFFFF;list-style-type: none;margin-left: 5px;padding-left: 5px;margin-top: 20px;padding-top: 20px" id="country_id2">
 		
@@ -64,17 +64,17 @@
   
     
   <span class="input-group-addon" id="sizing-addon3">Дата #1</span>
-  <input type="text" name="first_date" class="form-control datepicker" data-provide="datepicker" placeholder="Дата #1" aria-describedby="sizing-addon3" required>
+  <input  type="text" name="first_date" class="form-control datepicker" data-provide="datepicker" placeholder="Дата #1" aria-describedby="sizing-addon3" required>
  
   
   
   <span class="input-group-addon" id="sizing-addon3">Диапазон</span>
-  <input type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3" required>
+  <input style ="height: 31px" type="text" name="pback" class="form-control" placeholder="Колличество дней" aria-describedby="sizing-addon3" required>
  
 	
  
   <span class="input-group-addon" id="sizing-addon3">Обратный рейс</span>
-  <select name="select" class="selectpicker form-control" style="padding:5px 0px;" required>
+  <select style ="height: 31px" name="select" class="selectpicker form-control" style="padding:5px 0px;" required>
     <option>1</option> 
     <option>2</option>
     <option>3</option>
