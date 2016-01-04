@@ -8,14 +8,23 @@
 	});
 
 	$(".change-fly").click(function(){
-		var country = $("#country2").val();
-		var city = $("#city-2").val();
+		var country = $("#c1").val();
 
-		$("#country2").val( $("#country1").val() );
-		$("#city-2").val( $("#city-1").val() );
+		$("#c1").val( $("#c2").val() );
 
-		$("#country1").val( country );
-		$("#city-1").val( city );
+		$("#c2").val( country );
+
+		if($(this).hasClass("ico-right-fly")){
+
+			$(this).toggleClass("ico-left-fly");
+
+		}
+		else $(this).removeClass("ico-right-fly");
+
+
+
+
+
 	});
 
 	$(".select-parser").click(function(){
@@ -44,7 +53,7 @@
 	$("#search").click(function(e){
 
 		$("#result").html('<img src="img/238.GIF">');
-		if($('#city-2').val()=="911"){
+		if($('#c2').val()=="911"){
 			$("#result").html('<div id="boom"><img src="/img/911.gif"></div>');
 			var audio = new Audio(); // Создаём новый элемент Audio
 			  audio.src = '../img/911.mp3'; // Указываем путь к звуку "клика"
